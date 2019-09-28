@@ -5,9 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.MovieEntity;
+import com.dargoz.jetpack.utils.DummyData;
 
 import java.util.List;
 
@@ -39,9 +39,12 @@ public class MovieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        DummyData.prepareData(view.getContext());
         movieEntities = viewModel.getMovieList();
         RecyclerView movieRecyclerView = root.findViewById(R.id.movie_recycler_view);
-        movieRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
+        movieRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
+        MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
+        adapter.setMovieEntities(movieEntities);
+        movieRecyclerView.setAdapter(adapter);
     }
 }

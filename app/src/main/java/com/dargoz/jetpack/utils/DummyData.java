@@ -19,7 +19,7 @@ public class DummyData {
     private static String[] dataMovieRuntime;
     private static TypedArray dataPoster;
 
-    private static void prepareData(Context context){
+    public static void prepareData(Context context){
         dataMovieTitle = context
                 .getResources().getStringArray(R.array.movie_title);
         dataMovieReleaseDate = context
@@ -44,6 +44,7 @@ public class DummyData {
             movieEntities.add(new MovieEntity(
                     dataMovieTitle[index],
                     dataMovieDesc[index],
+                    dataMovieReleaseDate[index],
                     dataMovieGenre[index],
                     dataMovieRuntime[index],
                     Double.parseDouble(dataMovieScore[index]),
