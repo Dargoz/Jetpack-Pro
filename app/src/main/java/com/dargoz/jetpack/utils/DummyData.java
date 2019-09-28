@@ -46,6 +46,7 @@ public class DummyData {
                     dataMovieDesc[index],
                     dataMovieGenre[index],
                     dataMovieRuntime[index],
+                    Double.parseDouble(dataMovieScore[index]),
                     dataPoster.getResourceId(index,-1)
             ));
         }

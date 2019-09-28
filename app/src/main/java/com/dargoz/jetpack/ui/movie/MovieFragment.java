@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import java.util.List;
 
 
 public class MovieFragment extends Fragment {
+    private View root;
     private MovieViewModel viewModel;
     private List<MovieEntity> movieEntities;
     public MovieFragment() {
@@ -29,7 +32,7 @@ public class MovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie, container, false);
+        return root = inflater.inflate(R.layout.fragment_movie, container, false);
     }
 
     @Override
@@ -37,5 +40,8 @@ public class MovieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         movieEntities = viewModel.getMovieList();
+        RecyclerView movieRecyclerView = root.findViewById(R.id.movie_recycler_view);
+        movieRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
     }
 }

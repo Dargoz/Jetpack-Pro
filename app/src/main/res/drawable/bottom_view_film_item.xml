@@ -1,0 +1,11 @@
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_checked="true"
+        android:drawable="@drawable/baseline_local_movies_24"/>
+
+    <item
+        android:drawable="@drawable/baseline_local_movie_black"/>
+
+</selector>

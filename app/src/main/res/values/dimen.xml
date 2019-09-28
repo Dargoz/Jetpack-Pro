@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xx_small_margin">1dp</dimen>
+    <dimen name="x_small_margin">4dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
+    <dimen name="large_margin">32dp</dimen>
+
+    <dimen name="corner_radius">10dp</dimen>
+    <dimen name="poster_corner">15dp</dimen>
+
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="large_title_text_size">24sp</dimen>
+
+    <dimen name="main_poster_height">200dp</dimen>
+    <dimen name="main_poster_width">130dp</dimen>
+    <dimen name="poster_placeholder_width">210dp</dimen>
+    <dimen name="detail_poster_height">300dp</dimen>
+
+    <dimen name="favorite_poster_width">60dp</dimen>
+
+    <dimen name="icon_size">20dp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
+</resources>
