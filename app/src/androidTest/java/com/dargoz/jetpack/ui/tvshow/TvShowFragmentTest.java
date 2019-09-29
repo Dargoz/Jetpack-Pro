@@ -12,8 +12,11 @@ import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.pressBack;
+import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class TvShowFragmentTest {
@@ -26,9 +29,11 @@ public class TvShowFragmentTest {
 
     @Test
     public void performClickTvShowItem() {
+        onView(withId(R.id.main_view_pager)).check(matches(isDisplayed()));
+        onView(withId(R.id.main_view_pager)).perform(swipeLeft());
         onView(withId(R.id.tv_show_recycler_view)).check(matches(isDisplayed()));
         onView(withId(R.id.tv_show_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-        onView(withId(R.id.detail_title_text_view)).check(matches(isDisplayed()));
+
     }
 }
