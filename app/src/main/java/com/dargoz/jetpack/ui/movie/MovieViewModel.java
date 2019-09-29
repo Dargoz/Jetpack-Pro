@@ -7,9 +7,15 @@ import com.dargoz.jetpack.utils.DummyData;
 
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class MovieViewModel extends ViewModel {
+    private List<MovieEntity> movieEntities;
 
-    public List<MovieEntity> getMovieList(){
-        return DummyData.generateMovieData();
+    void setMovieEntities(List<MovieEntity> movieEntities) {
+        this.movieEntities = movieEntities;
+    }
+
+    List<MovieEntity> getMovieList(){
+        return movieEntities;
     }
 }

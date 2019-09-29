@@ -1,16 +1,37 @@
 <resources>
+
     <string name="app_name">Movie Catalogue</string>
     <string name="template_movie_title">Arrow</string>
+
     <string name="template_movie_release_date">April 27, 2018</string>
     <string name="template_movie_desc">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy…</string>
 
-    <string name="template_genre_text">Action</string>
-    <string name="template_score_text">8.3</string>
-
+    <string name="line_separator">line separator</string>
+    <string name="overview_text">Overview</string>
     <string name="star_icon_text_desc">star icon</string>
     <string name="background_desc">background</string>
     <string name="movie_poster_content_desc">movie poster</string>
+
     <string name="movie_tab_title">Movie</string>
+    <string name="tv_show_tab_title">Tv Show</string>
+
+    <string name="detail_film_title_text">Detail Film</string>
+    <string name="template_genre_text">Action</string>
+    <string name="template_genre_title_text">Genre</string>
+    <string name="template_status_title_text">Status</string>
+    <string name="template_status_text">Released</string>
+    <string name="template_score_title_text">Score</string>
+    <string name="template_runtime_title_text">Runtime</string>
+
+    <string name="template_score_text">8.3</string>
+    <string name="template_runtime_text">2h 29m</string>
+    <string name="default_language">en-US</string>
+    <string name="language_setting_text">Language Setting</string>
+    <string name="template_episode_text">Tv Total : 22 Episodes</string>
+    <string name="runtime_icon_text">runtime icon</string>
+
+    <string name="bottom_margin_desc">bottom margin</string>
+    <string name="reload_text">reload</string>
 
     <array name="movie_image">
         <item>@drawable/poster_a_star</item>
@@ -46,7 +67,6 @@
         <item>@drawable/games_of_thrones</item>
         <item>@drawable/fairy_tail</item>
     </array>
-
     <string-array name="movie_title">
         <item>A Star Is Born</item>
         <item>Aquaman</item>
@@ -115,7 +135,6 @@
         <item>Earl Stone, a man in his 80s, is broke, alone, and facing foreclosure of his business when he is offered a job that simply requires him to drive. Easy enough, but, unbeknownst to Earl, he’s just signed on as a drug courier for a Mexican cartel. He does so well that his cargo increases exponentially, and Earl hit the radar of hard-charging DEA agent Colin Bates.</item>
         <item>Investigative journalist Eddie Brock attempts a comeback following a scandal, but accidentally becomes the host of Venom, a violent, super powerful alien symbiote. Soon, he must rely on his newfound powers to protect the world from a shadowy organization looking for a symbiote of their own.</item>
     </string-array>
-
     <string-array name="movie_genre">
         <item>Drama, Romance, Music</item>
         <item>Action, Adventure, Fantasy</item>
@@ -138,6 +157,7 @@
         <item>Crime, Drama, Thriller</item>
         <item>Science Fiction, Action</item>
     </string-array>
+
     <string-array name="movie_score">
         <item>7.5</item>
         <item>6.8</item>
@@ -298,6 +318,7 @@
         <item>25m</item>
     </string-array>
 
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="tv_total_episode">
         <item>13 Episodes</item>
         <item>22 Episodes</item>

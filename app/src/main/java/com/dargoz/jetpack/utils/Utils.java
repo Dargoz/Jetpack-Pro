@@ -1,11 +1,17 @@
 package com.dargoz.jetpack.utils;
 
+import android.content.Context;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class Utils {
+    public static int convertDpToPixel(float dp, Context context) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+
     public static String formatDate(String dateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {

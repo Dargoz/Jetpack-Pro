@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/softBlack">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:text="@string/detail_film_title_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_title_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/detail_page_scroll_view"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".DetailMovieActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/detail_title_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:text="@string/template_movie_title"
+                android:textSize="@dimen/large_title_text_size"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/background_desc"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/desc_detail_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/episode_text_view"
+                app:srcCompat="@drawable/rounded_rectangle_white" />
+
+            <ImageView
+                android:id="@+id/movie_detail_image"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/detail_poster_height"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:contentDescription="@string/movie_poster_content_desc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_title_text_view"
+                app:srcCompat="@drawable/arrow" />
+
+            <TextView
+                android:id="@+id/episode_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/detail_poster_footer_bg"
+                android:padding="@dimen/small_margin"
+                android:text="@string/template_episode_text"
+                android:textColor="@android:color/white"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/movie_detail_image"
+                app:layout_constraintEnd_toEndOf="@+id/movie_detail_image"
+                app:layout_constraintStart_toStartOf="@+id/movie_detail_image"
+                app:layout_constraintTop_toBottomOf="@+id/movie_detail_image" />
+
+
+            <TextView
+                android:id="@+id/desc_title_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:text="@string/overview_text"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/episode_text_view" />
+
+            <TextView
+                android:id="@+id/desc_detail_text_view"
+                style="@style/common_text_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/template_movie_desc"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/desc_title_text_view" />
+
+            <ImageView
+                android:id="@+id/line2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:contentDescription="@string/line_separator"
+                app:layout_constraintBottom_toBottomOf="@id/score_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:srcCompat="@drawable/rounded_rectangle_white" />
+
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/template_score_title_text"
+                android:textAlignment="center"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/small_margin"
+                app:layout_constraintTop_toTopOf="@id/line2"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/score_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_margin"
+                android:contentDescription="@string/star_icon_text_desc"
+                app:layout_constraintTop_toTopOf="@id/runtime_icon"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/runtime_icon"
+                app:srcCompat="@drawable/baseline_star_white_24"
+                />
+
+            <TextView
+                android:id="@+id/score_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/title_text_size"
+                android:text="@string/template_score_text"
+                android:paddingBottom="@dimen/small_margin"
+                app:layout_constraintTop_toBottomOf="@id/score_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"
+                />
+
+            <TextView
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/template_runtime_title_text"
+                android:textAlignment="center"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/small_margin"
+                app:layout_constraintTop_toTopOf="@id/line2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline2"
+                />
+
+            <ImageView
+                android:id="@+id/runtime_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/runtime_icon_text"
+                android:padding="@dimen/small_margin"
+                app:layout_constraintTop_toBottomOf="@id/textView5"
+                app:layout_constraintStart_toEndOf="@id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/baseline_access_time_white_24"
+                />
+
+            <TextView
+                android:id="@+id/runtime_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/template_runtime_text"
+                android:textSize="@dimen/title_text_size"
+                android:textAlignment="center"
+                android:paddingBottom="@dimen/small_margin"
+                app:layout_constraintStart_toEndOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/runtime_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+            <ImageView
+                android:id="@+id/line3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:contentDescription="@string/line_separator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line2"
+                app:layout_constraintBottom_toBottomOf="@id/status_text_view"
+                app:srcCompat="@drawable/rounded_rectangle_white" />
+
+            <TextView
+                android:id="@+id/genre_title_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:text="@string/template_genre_title_text"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/line3" />
+
+            <LinearLayout
+                android:id="@+id/genre_container_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genre_title_text_view">
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/status_title_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="@string/template_status_title_text"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genre_container_view" />
+
+            <TextView
+                android:id="@+id/status_text_view"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/template_status_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_title_text_view" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:contentDescription="@string/bottom_margin_desc"
+                app:layout_constraintTop_toBottomOf="@id/line3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

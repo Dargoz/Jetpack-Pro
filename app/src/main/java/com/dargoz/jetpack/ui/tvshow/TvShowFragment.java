@@ -1,4 +1,5 @@
-package com.dargoz.jetpack.ui.movie;
+package com.dargoz.jetpack.ui.tvshow;
+
 
 import android.os.Bundle;
 
@@ -14,37 +15,37 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
+import com.dargoz.jetpack.data.TvShowEntity;
 import com.dargoz.jetpack.utils.DummyData;
 
 import java.util.List;
 
-
-public class MovieFragment extends Fragment {
+public class TvShowFragment extends Fragment {
     private View root;
 
-    public MovieFragment() {
+    public TvShowFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return root = inflater.inflate(R.layout.fragment_movie, container, false);
+        return root = inflater.inflate(R.layout.fragment_tv_show, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MovieViewModel viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        DummyData.prepareMovieData(view.getContext());
-        viewModel.setMovieEntities(DummyData.generateMovieData());
-        List<MovieEntity> movieEntities = viewModel.getMovieList();
-        RecyclerView movieRecyclerView = root.findViewById(R.id.movie_recycler_view);
-        movieRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
-        MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
-        adapter.setMovieEntities(movieEntities);
-        movieRecyclerView.setAdapter(adapter);
+        DummyData.prepareTvShowData(view.getContext());
+        TvShowViewModel viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        viewModel.setTvShowEntities(DummyData.generateTvShowData());
+        List<TvShowEntity> tvShowEntities = viewModel.getTvShowList();
+        RecyclerView recyclerView = root.findViewById(R.id.tv_show_recycler_view);
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
+        TvShowRecyclerViewAdapter adapter = new TvShowRecyclerViewAdapter();
+        adapter.setTvShowEntities(tvShowEntities);
+        recyclerView.setAdapter(adapter);
     }
 }

@@ -11,12 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:tabGravity="fill"
+        app:tabTextColor="@color/white"
+        android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:background="@color/softBlack"
         app:layout_constraintTop_toBottomOf="@id/main_tab_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
