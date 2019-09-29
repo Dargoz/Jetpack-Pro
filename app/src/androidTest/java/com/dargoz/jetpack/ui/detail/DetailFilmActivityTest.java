@@ -8,13 +8,11 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.MovieEntity;
-
 import com.dargoz.jetpack.ui.utils.FakeData;
 import com.dargoz.jetpack.utils.Constants;
 
 import org.junit.Rule;
 import org.junit.Test;
-
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -36,11 +34,16 @@ public class DetailFilmActivityTest {
         }
     };
 
+
+
     @Test
     public void checkFilmDataIsMatched(){
+        onView(withId(R.id.detail_title_text_view)).check(matches(isDisplayed()));
+        onView(withId(R.id.detail_title_text_view)).check(matches(withText(movieEntity.getTitle())));
         onView(withId(R.id.desc_detail_text_view)).check(matches(isDisplayed()));
         onView(withId(R.id.desc_detail_text_view)).check(matches(withText(movieEntity.getDescription())));
         onView(withId(R.id.score_text_view)).check(matches(isDisplayed()));
         onView(withId(R.id.score_text_view)).check(matches(withText(String.valueOf(movieEntity.getScore()))));
     }
+
 }

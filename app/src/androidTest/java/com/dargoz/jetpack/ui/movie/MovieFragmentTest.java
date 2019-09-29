@@ -22,7 +22,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 public class MovieFragmentTest {
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
-    private MovieFragment movieFragment = new MovieFragment();
 
     @Before
     public void setUp() {
