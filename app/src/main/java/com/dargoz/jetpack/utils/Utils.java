@@ -23,4 +23,8 @@ public class Utils {
         }
         return dateString;
     }
+
+    public static String getObjectImageUrl(String url, String imageSize, String path) {
+        return url + imageSize + path;
+    }
 }

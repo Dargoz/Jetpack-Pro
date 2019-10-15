@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +18,13 @@ import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.MovieEntity;
 import com.dargoz.jetpack.utils.DummyData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class MovieFragment extends Fragment {
     private View root;
+    private RecyclerView movieRecyclerView;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -39,12 +42,19 @@ public class MovieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         MovieViewModel viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         DummyData.prepareMovieData(view.getContext());
-        viewModel.setMovieEntities(DummyData.generateMovieData());
-        List<MovieEntity> movieEntities = viewModel.getMovieList();
-        RecyclerView movieRecyclerView = root.findViewById(R.id.movie_recycler_view);
+        viewModel.setMovieEntities("");
+        viewModel.getMovieList().observe(this, getMovies);
+
+        movieRecyclerView = root.findViewById(R.id.movie_recycler_view);
         movieRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
-        MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
-        adapter.setMovieEntities(movieEntities);
-        movieRecyclerView.setAdapter(adapter);
+
     }
+    private Observer<List<MovieEntity>> getMovies = new Observer<List<MovieEntity>>() {
+        @Override
+        public void onChanged(List<MovieEntity> movieEntities) {
+            MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
+            adapter.setMovieEntities(movieEntities);
+            movieRecyclerView.setAdapter(adapter);
+        }
+    };
 }

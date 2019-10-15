@@ -3,7 +3,13 @@ package com.dargoz.jetpack.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MovieEntity implements Parcelable {
+    private int id;
     private String title;
     private String description;
     private String releaseDate;
@@ -12,6 +18,7 @@ public class MovieEntity implements Parcelable {
     private double score;
     private String status;
     private int image;
+    private String imagePath;
 
     public MovieEntity(String title, String description, String releaseDate, String genre,
                        String duration, double score, String status, int image) {
@@ -23,6 +30,19 @@ public class MovieEntity implements Parcelable {
         this.score = score;
         this.status = status;
         this.image = image;
+    }
+    public MovieEntity(@NonNull JSONObject movieObject){
+        try {
+            this.id = movieObject.getInt("id");
+            this.title = movieObject.getString("title");
+            this.description = movieObject.getString("overview");
+            this.releaseDate = movieObject.getString("release_date");
+            this.score = movieObject.getDouble("vote_average");
+            this.imagePath = movieObject.getString("poster_path");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getTitle() {
@@ -55,6 +75,10 @@ public class MovieEntity implements Parcelable {
 
     public int getImage() {
         return image;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     @Override
