@@ -2,7 +2,7 @@ package com.dargoz.jetpack.ui.movie;
 
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 
 import org.junit.Before;
 import org.junit.Test;

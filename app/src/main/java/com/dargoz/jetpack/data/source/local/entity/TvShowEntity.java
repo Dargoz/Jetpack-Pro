@@ -1,4 +1,4 @@
-package com.dargoz.jetpack.data;
+package com.dargoz.jetpack.data.source.local.entity;
 
 import android.os.Parcel;
 

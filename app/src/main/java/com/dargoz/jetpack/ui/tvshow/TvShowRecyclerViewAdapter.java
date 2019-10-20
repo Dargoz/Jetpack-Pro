@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.ui.detail.DetailFilmActivity;
 import com.dargoz.jetpack.utils.Constants;
 import com.dargoz.jetpack.utils.Utils;

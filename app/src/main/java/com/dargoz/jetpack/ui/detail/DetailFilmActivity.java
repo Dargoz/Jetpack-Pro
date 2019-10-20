@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.dargoz.jetpack.ui.GenreTextView;
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
 public class DetailFilmActivity extends AppCompatActivity {
     DetailFimViewModel viewModel;

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
 import java.util.ArrayList;
 

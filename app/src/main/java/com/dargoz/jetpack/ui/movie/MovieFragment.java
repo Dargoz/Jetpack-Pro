@@ -15,10 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.utils.DummyData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,9 +39,10 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         MovieViewModel viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        DummyData.prepareMovieData(view.getContext());
-        viewModel.setMovieEntities("");
+//        DummyData.prepareMovieData(view.getContext());
+        viewModel.setMovieEntities();
         viewModel.getMovieList().observe(this, getMovies);
 
         movieRecyclerView = root.findViewById(R.id.movie_recycler_view);

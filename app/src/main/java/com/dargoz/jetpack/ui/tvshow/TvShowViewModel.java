@@ -2,7 +2,7 @@ package com.dargoz.jetpack.ui.tvshow;
 
 import androidx.lifecycle.ViewModel;
 
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
 import java.util.List;
 

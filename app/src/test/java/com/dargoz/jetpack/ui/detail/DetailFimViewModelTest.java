@@ -3,8 +3,8 @@ package com.dargoz.jetpack.ui.detail;
 import android.content.Intent;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.utils.Constants;
 
 import org.junit.Before;

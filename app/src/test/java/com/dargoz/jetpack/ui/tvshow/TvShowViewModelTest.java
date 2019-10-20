@@ -1,7 +1,7 @@
 package com.dargoz.jetpack.ui.tvshow;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
 import org.junit.Before;
 import org.junit.Test;

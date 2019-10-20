@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.utils.DummyData;
 
 import java.util.List;
