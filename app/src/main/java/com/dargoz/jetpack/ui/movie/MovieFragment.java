@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +68,11 @@ public class MovieFragment extends Fragment {
     private Observer<List<MovieEntity>> getMovies = new Observer<List<MovieEntity>>() {
         @Override
         public void onChanged(List<MovieEntity> movieEntities) {
+            Log.i("DRG","get info");
             MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
             adapter.setMovieEntities(movieEntities);
             movieRecyclerView.setAdapter(adapter);
+
         }
     };
 }

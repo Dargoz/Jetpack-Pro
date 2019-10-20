@@ -32,6 +32,7 @@
 
     <string name="bottom_margin_desc">bottom margin</string>
     <string name="reload_text">reload</string>
+    <string name="placeholder_content_desc">placeholder</string>
 
     <array name="movie_image">
         <item>@drawable/poster_a_star</item>

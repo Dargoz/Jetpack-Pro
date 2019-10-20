@@ -2,6 +2,8 @@ package com.dargoz.jetpack.ui.movie;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,9 @@ import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.ui.detail.DetailFilmActivity;
 import com.dargoz.jetpack.utils.Constants;
+import static com.dargoz.jetpack.utils.ImageRepositoryList.*;
 import com.dargoz.jetpack.utils.Utils;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
@@ -51,6 +55,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
+        private final ShimmerFrameLayout shimmerFrameLayout;
         private final FrameLayout movieContainer;
         private final ImageView moviePoster;
         private final TextView movieTitleText;
@@ -60,6 +65,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            shimmerFrameLayout = itemView.findViewById(R.id.movie_item_shimmer_layout);
             movieContainer = itemView.findViewById(R.id.movie_image_container);
             moviePoster = itemView.findViewById(R.id.movie_image_view);
             movieTitleText = itemView.findViewById(R.id.movie_title_text_view);
@@ -69,6 +75,15 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         }
 
         void bindViewData(final MovieEntity movieEntity){
+            Bitmap bitmap = findImage(movieEntity.getId());
+            shimmerFrameLayout.startShimmer();
+            if(bitmap != null){
+                if(shimmerFrameLayout.isShimmerStarted()){
+                    shimmerFrameLayout.stopShimmer();
+                }
+                shimmerFrameLayout.setVisibility(View.GONE);
+            }
+
             movieContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -76,8 +91,8 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
                 }
             });
             Glide.with(context)
-                    .load(movieEntity.getImage())
-                    .placeholder(R.drawable.baseline_broken_image_white_24)
+                    .load(bitmap)
+                    .placeholder(R.drawable.rounded_rect_grey)
                     .apply(new RequestOptions()
                             .override(context
                                             .getResources()

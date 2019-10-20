@@ -31,6 +31,20 @@ public class MovieEntity implements Parcelable {
         this.status = status;
         this.image = image;
     }
+
+    public MovieEntity(String id, String title, String description, String releaseDate, String genre,
+                       String duration, double score, String status, String imagePath) {
+        this.id = Integer.parseInt(id);
+        this.title = title;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.genre = genre;
+        this.duration = duration;
+        this.score = score;
+        this.status = status;
+        this.imagePath = imagePath;
+    }
+
     public MovieEntity(@NonNull JSONObject movieObject){
         try {
             this.id = movieObject.getInt("id");
@@ -43,6 +57,10 @@ public class MovieEntity implements Parcelable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

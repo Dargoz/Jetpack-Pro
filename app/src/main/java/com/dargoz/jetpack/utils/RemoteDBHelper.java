@@ -7,6 +7,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.remote.response.MovieResponse;
 
 import org.json.JSONArray;
@@ -57,16 +58,16 @@ public class RemoteDBHelper {
     }
 
     public interface MovieImageResponseListener {
-        void onImageResponse(Bitmap bitmap);
+        void onImageResponse(MovieEntity movieEntity, Bitmap bitmap);
         void onImageError();
     }
 
-    public void loadImage(String imagePath, final MovieImageResponseListener listener) {
+    public void loadImage(final MovieEntity movieEntity, final MovieImageResponseListener listener) {
         AndroidNetworking.get(
                 Utils.getObjectImageUrl(
                         Constants.IMAGE_URL,
                         Constants.IMAGE_SIZE_W500,
-                        imagePath
+                        movieEntity.getImagePath()
                 ))
                 .setTag("imageRequestTag")
                 .setPriority(Priority.HIGH)
@@ -75,7 +76,7 @@ public class RemoteDBHelper {
                 .getAsBitmap(new BitmapRequestListener() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        listener.onImageResponse(response);
+                        listener.onImageResponse(movieEntity, response);
                     }
 
                     @Override

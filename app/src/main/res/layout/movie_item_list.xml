@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
         android:id="@+id/movie_image_container"
@@ -21,7 +22,27 @@
             android:layout_height="@dimen/main_poster_height"
             android:contentDescription="@string/movie_poster_content_desc"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/arrow" />
+            tools:src="@drawable/arrow" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/movie_item_shimmer_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:shimmer_colored="true"
+            app:shimmer_shape="linear"
+            app:shimmer_width_ratio="1.5"
+            app:shimmer_dropoff="6"
+            app:shimmer_base_color="@color/grey"
+            app:shimmer_highlight_color="@color/white"
+            app:shimmer_duration="1200"
+            >
+            <ImageView
+                android:layout_width="@dimen/main_poster_width"
+                android:layout_height="@dimen/main_poster_height"
+                android:contentDescription="@string/placeholder_content_desc"
+                android:src="@drawable/rounded_rect_grey"
+                />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
