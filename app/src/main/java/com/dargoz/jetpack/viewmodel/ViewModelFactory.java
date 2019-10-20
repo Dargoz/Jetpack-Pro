@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.di.Injection;
 import com.dargoz.jetpack.ui.movie.MovieViewModel;
+import com.dargoz.jetpack.utils.Constants;
 
 @SuppressWarnings("unchecked")
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
@@ -19,11 +20,11 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         this.filmRepository = filmRepository;
     }
 
-    public static ViewModelFactory getInstance(Application application){
+    public static ViewModelFactory getInstance(Application application, Constants.Category category){
         if(INSTANCE == null){
             synchronized (ViewModelFactory.class){
                 if(INSTANCE == null){
-                    INSTANCE = new ViewModelFactory(Injection.provideRepository(application));
+                    INSTANCE = new ViewModelFactory(Injection.provideRepository(application,category));
                 }
             }
         }

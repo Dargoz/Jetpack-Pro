@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.utils.Constants;
+import static com.dargoz.jetpack.utils.Constants.Category.*;
 import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 import java.util.List;
@@ -57,7 +59,8 @@ public class MovieFragment extends Fragment {
     }
 
     private static MovieViewModel obtainViewModel(FragmentActivity activity){
-        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        ViewModelFactory factory =
+                ViewModelFactory.getInstance(activity.getApplication(), URL_MOVIES);
         return ViewModelProviders.of(activity, factory).get(MovieViewModel.class);
     }
 

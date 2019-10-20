@@ -12,7 +12,7 @@ public class RemoteRepository {
 
     public static RemoteRepository getInstance(RemoteDBHelper remoteDBHelper) {
         if(INSTANCE == null) {
-            new RemoteRepository(remoteDBHelper);
+            INSTANCE = new RemoteRepository(remoteDBHelper);
         }
         return INSTANCE;
     }
