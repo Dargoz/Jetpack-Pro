@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
-import com.dargoz.jetpack.utils.DummyData;
+import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 import java.util.List;
 
@@ -39,16 +40,27 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        MovieViewModel viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
 //        DummyData.prepareMovieData(view.getContext());
-        viewModel.setMovieEntities();
-        viewModel.getMovieList().observe(this, getMovies);
-
         movieRecyclerView = root.findViewById(R.id.movie_recycler_view);
         movieRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
 
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(getActivity() != null){
+            MovieViewModel viewModel = obtainViewModel(getActivity());
+            viewModel.setMovieEntities();
+            viewModel.getMovieList().observe(this, getMovies);
+        }
+    }
+
+    private static MovieViewModel obtainViewModel(FragmentActivity activity){
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(MovieViewModel.class);
+    }
+
     private Observer<List<MovieEntity>> getMovies = new Observer<List<MovieEntity>>() {
         @Override
         public void onChanged(List<MovieEntity> movieEntities) {

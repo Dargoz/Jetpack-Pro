@@ -15,22 +15,35 @@ public class Constants {
     public static final String IMAGE_SIZE_W500 = "w500";
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
 
-    public static final String URL_TYPE_SEARCH = "search";
-    public static final String URL_TYPE_DISCOVER = "discover";
-    public static final String URL_TYPE_DETAIL = "detail";
-    public static final String URL_TYPE_NEW_RELEASE = "release";
-    public static final String URL_MOVIES = "movie";
-    public static final String URL_TV = "tv";
+    public enum Type {
+        URL_TYPE_SEARCH,
+        URL_TYPE_DISCOVER,
+        URL_TYPE_NEW_RELEASE,
+        URL_TYPE_DETAIL
+    }
+
+    public enum Category{
+        URL_MOVIES("movie"),
+        URL_TV("tv");
+        private String value;
+
+        Category(String value){
+            this.value = value;
+        }
+        public String getValue(){
+            return value;
+        }
+    }
 
     @NonNull
-    public static String getUrlOf(@NonNull String type, String category , String keyword, Context context){
+    public static String getUrlOf(@NonNull Type type, Category category , String keyword, Context context){
         switch (type){
             case URL_TYPE_DISCOVER :
-                return "https://api.themoviedb.org/3/discover/"+ category
+                return "https://api.themoviedb.org/3/discover/"+ category.getValue()
                         + "?language=" + context.getResources().getString(R.string.default_language)
                         + "&api_key=" + API_KEY;
             case URL_TYPE_SEARCH :
-                return "https://api.themoviedb.org/3/search/"+ category
+                return "https://api.themoviedb.org/3/search/"+ category.getValue()
                         + "?api_key=" + API_KEY
                         + "&language=" + context.getResources().getString(R.string.default_language)
                         + "&query=" + keyword;
@@ -40,7 +53,7 @@ public class Constants {
                         + "&primary_release_date.gte=" + keyword
                         + "&primary_release_date.lte=" + keyword;
             default:
-                return "https://api.themoviedb.org/3/"+ category + "/" + keyword +
+                return "https://api.themoviedb.org/3/"+ category.getValue() + "/" + keyword +
                         "?language=" + context.getResources().getString(R.string.default_language) +
                         "&api_key=" + API_KEY;
         }

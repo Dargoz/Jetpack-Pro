@@ -15,11 +15,13 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class MovieViewModel extends ViewModel implements FilmRepository.RepositoryListener {
     private MutableLiveData<List<MovieEntity>> movieItemList = new MutableLiveData<>();
+    private FilmRepository filmRepository;
 
+    public MovieViewModel(FilmRepository filmRepository){
+        this.filmRepository = filmRepository;
+    }
     void setMovieEntities() {
-        FilmRepository.getInstance(
-                RemoteRepository.getInstance(new RemoteDBHelper(""))
-        ).getAllMovies(this);
+        filmRepository.getAllMovies(this);
     }
 
     LiveData<List<MovieEntity>> getMovieList(){
