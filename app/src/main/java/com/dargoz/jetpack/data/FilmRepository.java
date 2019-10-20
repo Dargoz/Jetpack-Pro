@@ -35,7 +35,7 @@ public class FilmRepository implements DataSource,
 
     public interface ImageRepositoryListener {
         void onImageResponse(MovieEntity movieEntity, Bitmap bitmap);
-        void onImageError();
+        void onImageError(MovieEntity movieEntity);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class FilmRepository implements DataSource,
     }
 
     @Override
-    public void onImageError() {
-        imageRepositoryListener.onImageError();
+    public void onImageError(MovieEntity movieEntity) {
+        imageRepositoryListener.onImageError(movieEntity);
     }
 
 }

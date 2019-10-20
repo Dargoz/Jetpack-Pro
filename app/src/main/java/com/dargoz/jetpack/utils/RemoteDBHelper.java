@@ -59,7 +59,7 @@ public class RemoteDBHelper {
 
     public interface MovieImageResponseListener {
         void onImageResponse(MovieEntity movieEntity, Bitmap bitmap);
-        void onImageError();
+        void onImageError(MovieEntity movieEntity);
     }
 
     public void loadImage(final MovieEntity movieEntity, final MovieImageResponseListener listener) {
@@ -81,7 +81,7 @@ public class RemoteDBHelper {
 
                     @Override
                     public void onError(ANError anError) {
-                        listener.onImageError();
+                        listener.onImageError(movieEntity);
                     }
                 });
     }

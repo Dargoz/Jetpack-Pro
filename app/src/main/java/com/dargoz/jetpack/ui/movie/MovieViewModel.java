@@ -6,10 +6,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.utils.Image;
 import com.dargoz.jetpack.utils.ImageRepositoryList;
+import com.dargoz.jetpack.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,12 @@ public class MovieViewModel extends ViewModel
     }
 
     @Override
-    public void onImageError() {
-        Log.w("DRG","image error : ");
+    public void onImageError(MovieEntity movieEntity) {
+        ImageRepositoryList.addImage(
+                new Image(
+                        movieEntity.getId(),
+                        Utils.getBitmapFromDrawable(R.drawable.baseline_broken_image_white_24)
+                )
+        );
     }
 }
