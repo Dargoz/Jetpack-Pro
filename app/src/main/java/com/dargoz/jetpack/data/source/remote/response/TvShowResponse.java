@@ -2,11 +2,27 @@ package com.dargoz.jetpack.data.source.remote.response;
 
 import android.os.Parcel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class TvShowResponse extends MovieResponse {
     private String episode;
 
-    public TvShowResponse(String id, String title, String description, String releaseDate, String genre, String duration, String score, String status, String imagePath) {
-        super(id, title, description, releaseDate, genre, duration, score, status, imagePath);
+    public TvShowResponse(JSONObject jsonObject){
+        super();
+        try {
+            setMovieResponse(
+                    jsonObject.getString("id"),
+                    jsonObject.getString("name"),
+                    jsonObject.getString("overview"),
+                    jsonObject.getString("first_air_date"),
+                    jsonObject.getString("vote_average"),
+                    jsonObject.getString("poster_path")
+            );
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -20,7 +36,7 @@ public class TvShowResponse extends MovieResponse {
         dest.writeString(this.episode);
     }
 
-    protected TvShowResponse(Parcel in) {
+    private TvShowResponse(Parcel in) {
         super(in);
         this.episode = in.readString();
     }

@@ -11,6 +11,11 @@ public class TvShowEntity extends MovieEntity {
         this.totalEpisode = totalEpisode;
     }
 
+    public TvShowEntity(String id, String title, String description, String releaseDate, String genre,
+                       String duration, double score, String status, String imagePath) {
+        super(id, title, description, releaseDate, genre, duration, score, status, imagePath);
+    }
+
     public String getTotalEpisode() {
         return totalEpisode;
     }

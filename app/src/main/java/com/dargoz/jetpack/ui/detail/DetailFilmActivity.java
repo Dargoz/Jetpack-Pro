@@ -16,6 +16,8 @@ import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
+import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
+
 public class DetailFilmActivity extends AppCompatActivity {
     DetailFimViewModel viewModel;
     TextView filmTitleText;
@@ -59,7 +61,7 @@ public class DetailFilmActivity extends AppCompatActivity {
             episodeText.setText(String.format("Tv Shows | %s",tvShowEntity.getTotalEpisode()));
         }
         filmTitleText.setText(movieEntity.getTitle());
-        filmPosterImage.setImageResource(movieEntity.getImage());
+        filmPosterImage.setImageBitmap(findImage(movieEntity.getId()));
         filmDescText.setText(movieEntity.getDescription());
         scoreText.setText(String.valueOf(movieEntity.getScore()));
         runtimeText.setText(movieEntity.getDuration());

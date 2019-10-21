@@ -19,23 +19,21 @@ public class MovieResponse implements Parcelable {
     private String status;
     private String imagePath;
 
-    public MovieResponse(String id, String title, String description, String releaseDate,
-                         String genre, String duration, String score, String status,
-                         String imagePath) {
+    MovieResponse(){}
+
+    public void setMovieResponse(String id, String title, String description, String releaseDate,
+                         String score, String imagePath){
         this.id = id;
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
-        this.genre = genre;
-        this.duration = duration;
         this.score = score;
-        this.status = status;
-        this.imagePath = imagePath;
+        this.imagePath =imagePath;
     }
 
     public MovieResponse(@NonNull JSONObject movieObject){
         try {
-            this.id = movieObject.getString(    "id");
+            this.id = movieObject.getString("id");
             this.title = movieObject.getString("title");
             this.description = movieObject.getString("overview");
             this.releaseDate = movieObject.getString("release_date");

@@ -51,7 +51,6 @@ public class MovieViewModel extends ViewModel
 
     @Override
     public void onImageResponse(MovieEntity movieEntity, Bitmap bitmap) {
-        Log.w("DRG","Image success : ");
         ImageRepositoryList.addImage(new Image(movieEntity.getId(), bitmap));
         movieItemList.setValue(movieEntities);
     }

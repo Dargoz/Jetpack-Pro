@@ -1,6 +1,7 @@
 package com.dargoz.jetpack.utils;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -9,6 +10,7 @@ import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.remote.response.MovieResponse;
+import com.dargoz.jetpack.data.source.remote.response.TvShowResponse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,12 +25,17 @@ public class RemoteDBHelper {
         this.url = url;
     }
 
-    public interface MovieResponseListener {
+    public interface ResponseListener {
         void onResponse(ArrayList<MovieResponse> movieResponses);
         void onError();
     }
 
-    public void loadMovies(final MovieResponseListener movieResponseListener) {
+    public interface TvResponseListener {
+        void onTvResponse(ArrayList<TvShowResponse> tvShowResponses);
+        void onError();
+    }
+
+    public void loadMovies(final ResponseListener responseListener) {
         final ArrayList<MovieResponse> movieResponses = new ArrayList<>();
         AndroidNetworking.get(url)
                 .setTag("movies")
@@ -44,7 +51,7 @@ public class RemoteDBHelper {
                                 JSONObject movieObject = results.getJSONObject(i);
                                 movieResponses.add(new MovieResponse(movieObject));
                             }
-                            movieResponseListener.onResponse(movieResponses);
+                            responseListener.onResponse(movieResponses);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -52,17 +59,48 @@ public class RemoteDBHelper {
 
                     @Override
                     public void onError(ANError anError) {
-                        movieResponseListener.onError();
+                        responseListener.onError();
                     }
                 });
     }
 
-    public interface MovieImageResponseListener {
+    public void loadAllTvShows(final TvResponseListener responseListener){
+        Log.i("DRG","url : " + url);
+        final ArrayList<TvShowResponse> tvShowResponses = new ArrayList<>();
+        AndroidNetworking.get(url)
+                .setTag("tvShow")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray results = response.getJSONArray("results");
+                            int totalItem = results.length();
+                            for (int i = 0; i < totalItem; i++) {
+                                JSONObject tvShowObject = results.getJSONObject(i);
+                                tvShowResponses.add(new TvShowResponse(tvShowObject));
+                            }
+                            responseListener.onTvResponse(tvShowResponses);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.w("DRG","Error Tv " + anError.getErrorDetail());
+                        responseListener.onError();
+                    }
+                });
+    }
+
+    public interface ImageResponseListener {
         void onImageResponse(MovieEntity movieEntity, Bitmap bitmap);
         void onImageError(MovieEntity movieEntity);
     }
 
-    public void loadImage(final MovieEntity movieEntity, final MovieImageResponseListener listener) {
+    public void loadImage(final MovieEntity movieEntity, final ImageResponseListener listener) {
         AndroidNetworking.get(
                 Utils.getObjectImageUrl(
                         Constants.IMAGE_URL,

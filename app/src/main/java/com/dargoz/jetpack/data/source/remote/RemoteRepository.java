@@ -14,15 +14,21 @@ public class RemoteRepository {
     public static RemoteRepository getInstance(RemoteDBHelper remoteDBHelper) {
         if(INSTANCE == null) {
             INSTANCE = new RemoteRepository(remoteDBHelper);
+        }else {
+            INSTANCE.remoteDBHelper = remoteDBHelper;
         }
         return INSTANCE;
     }
 
-    public void getAllMovies(RemoteDBHelper.MovieResponseListener listener){
+    public void getAllMovies(RemoteDBHelper.ResponseListener listener){
         remoteDBHelper.loadMovies(listener);
     }
 
-    public void getImage(MovieEntity movieEntity, RemoteDBHelper.MovieImageResponseListener listener){
+    public void getAllTvShows(RemoteDBHelper.TvResponseListener listener){
+        remoteDBHelper.loadAllTvShows(listener);
+    }
+
+    public void getImage(MovieEntity movieEntity, RemoteDBHelper.ImageResponseListener listener){
         remoteDBHelper.loadImage(movieEntity, listener);
     }
 }
