@@ -8,17 +8,26 @@ import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.data.source.remote.RemoteRepository;
 import com.dargoz.jetpack.data.source.remote.response.MovieResponse;
 import com.dargoz.jetpack.data.source.remote.response.TvShowResponse;
+import com.dargoz.jetpack.utils.Constants;
+import com.dargoz.jetpack.data.source.local.entity.GenreEntity;
 import com.dargoz.jetpack.utils.RemoteDBHelper;
+import com.dargoz.jetpack.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListener,
-        RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener {
+        RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener,
+        RemoteDBHelper.DetailsListener{
     private volatile static FilmRepository INSTANCE = null;
     private RemoteRepository remoteRepository;
     private RepositoryListener repositoryListener;
     private TvRepositoryListener tvRepositoryListener;
     private ImageRepositoryListener imageRepositoryListener;
+    private DetailsRepositoryListener detailsRepositoryListener;
 
     private FilmRepository(RemoteRepository remoteRepository) {
         this.remoteRepository = remoteRepository;
@@ -48,6 +57,10 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
     public interface ImageRepositoryListener {
         void onImageResponse(MovieEntity movieEntity, Bitmap bitmap);
         void onImageError(MovieEntity movieEntity);
+    }
+
+    public interface DetailsRepositoryListener {
+        void onDetailsDataResponse (Object object);
     }
 
     @Override
@@ -126,4 +139,44 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
         imageRepositoryListener.onImageError(movieEntity);
     }
 
+    @Override
+    public void getFilmDetails(MovieEntity movieEntity, Constants.Category category,
+                               DetailsRepositoryListener listener) {
+        remoteRepository.getDetails(movieEntity, category, this);
+        this.detailsRepositoryListener = listener;
+    }
+
+    @Override
+    public void onDetailResponse(MovieEntity movieEntity, Constants.Category category,
+                                 JSONObject response) {
+        try {
+            JSONArray genresListResponse = response.getJSONArray("genres");
+            ArrayList<GenreEntity> genresList = new ArrayList<>();
+            for(int idx = 0 ; idx < genresListResponse.length(); idx++){
+                JSONObject genreObject = genresListResponse.getJSONObject(idx);
+                GenreEntity genreEntity = new GenreEntity(genreObject);
+                genresList.add(genreEntity);
+            }
+            movieEntity.setGenre(genresList);
+            movieEntity.setStatus(response.getString("status"));
+            if (Constants.Category.URL_TV == category) {
+                JSONArray runtimeResponse =
+                        response.getJSONArray(Constants.TV_KEY_RUNTIME);
+                movieEntity.setDuration(Utils.formatRuntime(
+                        runtimeResponse.getInt(0)));
+                TvShowEntity tvShow = (TvShowEntity) movieEntity;
+                tvShow.setTotalEpisode(String.valueOf(
+                        response.getInt(Constants.KEY_TOTAL_EPISODE)
+                ));
+                detailsRepositoryListener.onDetailsDataResponse(tvShow);
+            } else {
+                movieEntity.setDuration(Utils.formatRuntime(
+                        response.getInt(Constants.MOVIES_KEY_RUNTIME)));
+                detailsRepositoryListener.onDetailsDataResponse(movieEntity);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

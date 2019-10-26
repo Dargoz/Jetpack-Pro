@@ -39,6 +39,10 @@ public class Utils {
         return dateString;
     }
 
+    public static String formatRuntime(int runtime) {
+        return String.format(Locale.getDefault(), "%dh %dm", runtime / 60, runtime % 60);
+    }
+
     public static String getObjectImageUrl(String url, String imageSize, String path) {
         return url + imageSize + path;
     }

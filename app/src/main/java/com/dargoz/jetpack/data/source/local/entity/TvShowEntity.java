@@ -20,6 +20,10 @@ public class TvShowEntity extends MovieEntity {
         return totalEpisode;
     }
 
+    public void setTotalEpisode(String totalEpisode) {
+        this.totalEpisode = totalEpisode;
+    }
+
     @Override
     public int describeContents() {
         return 0;

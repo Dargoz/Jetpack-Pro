@@ -1,6 +1,7 @@
 package com.dargoz.jetpack.data.source.remote;
 
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.utils.Constants;
 import com.dargoz.jetpack.utils.RemoteDBHelper;
 
 public class RemoteRepository {
@@ -30,5 +31,10 @@ public class RemoteRepository {
 
     public void getImage(MovieEntity movieEntity, RemoteDBHelper.ImageResponseListener listener){
         remoteDBHelper.loadImage(movieEntity, listener);
+    }
+
+    public void getDetails(MovieEntity movieEntity, Constants.Category category,
+                           RemoteDBHelper.DetailsListener listener){
+        remoteDBHelper.loadDetails(movieEntity, category, listener);
     }
 }

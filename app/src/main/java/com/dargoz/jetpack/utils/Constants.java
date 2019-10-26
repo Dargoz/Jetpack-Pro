@@ -12,6 +12,10 @@ public class Constants {
     public static final String MOVIE_INTENT = "movieEntity";
     public static final String TV_SHOW_INTENT = "tvShowEntity";
 
+    public static final String KEY_TOTAL_EPISODE = "number_of_episodes";
+    public static final String MOVIES_KEY_RUNTIME = "runtime";
+    public static final String TV_KEY_RUNTIME = "episode_run_time";
+
     public static final String IMAGE_SIZE_W500 = "w500";
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
 

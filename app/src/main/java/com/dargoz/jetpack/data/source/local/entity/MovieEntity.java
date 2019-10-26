@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MovieEntity implements Parcelable {
     private int id;
     private String title;
@@ -91,12 +93,24 @@ public class MovieEntity implements Parcelable {
         return status;
     }
 
-    public int getImage() {
-        return image;
-    }
-
     public String getImagePath() {
         return imagePath;
+    }
+
+    public void setGenre(ArrayList<GenreEntity> genreEntityArrayList) {
+        StringBuilder genreString = new StringBuilder();
+        for(GenreEntity genreEntity : genreEntityArrayList) {
+            genreString.append(genreEntity.getName()).append(", ");
+        }
+        this.genre = genreString.substring(0, genreString.length()-2);
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     @Override
@@ -106,6 +120,7 @@ public class MovieEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.releaseDate);
@@ -114,9 +129,11 @@ public class MovieEntity implements Parcelable {
         dest.writeDouble(this.score);
         dest.writeString(this.status);
         dest.writeInt(this.image);
+        dest.writeString(this.imagePath);
     }
 
-     MovieEntity(Parcel in) {
+    protected MovieEntity(Parcel in) {
+        this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
         this.releaseDate = in.readString();
@@ -125,9 +142,10 @@ public class MovieEntity implements Parcelable {
         this.score = in.readDouble();
         this.status = in.readString();
         this.image = in.readInt();
+        this.imagePath = in.readString();
     }
 
-    public static final Parcelable.Creator<MovieEntity> CREATOR = new Parcelable.Creator<MovieEntity>() {
+    public static final Creator<MovieEntity> CREATOR = new Creator<MovieEntity>() {
         @Override
         public MovieEntity createFromParcel(Parcel source) {
             return new MovieEntity(source);

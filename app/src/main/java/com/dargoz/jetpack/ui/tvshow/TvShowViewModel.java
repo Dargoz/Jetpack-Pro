@@ -10,7 +10,7 @@ import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
-import com.dargoz.jetpack.utils.Image;
+import com.dargoz.jetpack.data.source.local.entity.ImageEntity;
 import com.dargoz.jetpack.utils.ImageRepositoryList;
 import com.dargoz.jetpack.utils.Utils;
 
@@ -51,14 +51,14 @@ public class TvShowViewModel extends ViewModel implements FilmRepository.TvRepos
 
     @Override
     public void onImageResponse(MovieEntity movieEntity, Bitmap bitmap) {
-        ImageRepositoryList.addImage(new Image(movieEntity.getId(), bitmap));
+        ImageRepositoryList.addImage(new ImageEntity(movieEntity.getId(), bitmap));
         tvShowItemList.setValue(tvShowEntities);
     }
 
     @Override
     public void onImageError(MovieEntity movieEntity) {
         ImageRepositoryList.addImage(
-                new Image(
+                new ImageEntity(
                         movieEntity.getId(),
                         Utils.getBitmapFromDrawable(R.drawable.baseline_broken_image_white_24)
                 )

@@ -1,12 +1,12 @@
-package com.dargoz.jetpack.utils;
+package com.dargoz.jetpack.data.source.local.entity;
 
 import android.graphics.Bitmap;
 
-public class Image {
+public class ImageEntity {
     private int id;
     private Bitmap bitmap;
 
-    public Image(int id, Bitmap bitmap) {
+    public ImageEntity(int id, Bitmap bitmap) {
         this.id = id;
         this.bitmap = bitmap;
     }

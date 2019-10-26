@@ -123,4 +123,29 @@ public class RemoteDBHelper {
                     }
                 });
     }
+
+    public interface DetailsListener {
+      void onDetailResponse(MovieEntity movieEntity, Constants.Category category,
+                            JSONObject response);
+    }
+
+    public void loadDetails(final MovieEntity movieEntity, final Constants.Category category,
+                            final DetailsListener listener){
+        Log.i("DRG","url detail : " + url);
+        AndroidNetworking.get(url)
+                .setTag("filmDetail")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onDetailResponse(movieEntity, category, response);
+                    }
+
+                    @Override
+                    public void onError(ANError anError) { }
+                });
+
+    }
+
 }
