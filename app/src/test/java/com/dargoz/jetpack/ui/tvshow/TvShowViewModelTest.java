@@ -1,39 +1,59 @@
 package com.dargoz.jetpack.ui.tvshow;
 
-import com.dargoz.jetpack.R;
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class TvShowViewModelTest {
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     private TvShowViewModel viewModel;
-    private List<TvShowEntity> tvShowEntities = new ArrayList<>();
+    private FilmRepository filmRepository = mock(FilmRepository.class);
+    private final ArrayList<TvShowEntity> dummyTvShowList = new ArrayList<>();
+    private MutableLiveData<List<TvShowEntity>> tvShowList = new MutableLiveData<>();
     @Before
     public void setUp() {
-        viewModel = new TvShowViewModel();
-        TvShowEntity tvShowEntity = new TvShowEntity(
-                "Arrow",
-                "super hero movie",
-                "May 2018",
-                "action, drama, super power",
-                "35 minute",
-                Double.parseDouble("8.5"),
-                "Released",
-                R.drawable.arrow    ,
-                "22 Episodes"
-        );
-        tvShowEntities.add(tvShowEntity);
-        viewModel.setTvShowEntities(tvShowEntities);
+        viewModel = new TvShowViewModel(filmRepository);
     }
 
     @Test
     public void getTvShowList() {
-        assertEquals(tvShowEntities, viewModel.getTvShowList());
+        filmRepository.getAllTvShows(new FilmRepository.TvRepositoryListener() {
+            @Override
+            public void onSuccess(ArrayList<TvShowEntity> tvShowEntities) {
+                dummyTvShowList.addAll(tvShowEntities);
+                verifyData(tvShowEntities);
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        viewModel.getTvShowList();
+    }
+
+    private void verifyData(ArrayList<TvShowEntity> tvShowEntityArrayList){
+        tvShowList.setValue(dummyTvShowList);
+        when(tvShowEntityArrayList).then((Answer<?>) tvShowList);
+        Observer<List<TvShowEntity>> observer = mock(Observer.class);
+        viewModel.getTvShowList().observeForever(observer);
+        verify(observer).onChanged(dummyTvShowList);
     }
 }

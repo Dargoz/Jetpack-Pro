@@ -19,7 +19,7 @@ public class MovieResponse implements Parcelable {
     private String status;
     private String imagePath;
 
-    MovieResponse(){}
+    public MovieResponse(){}
 
     public void setMovieResponse(String id, String title, String description, String releaseDate,
                          String score, String imagePath){

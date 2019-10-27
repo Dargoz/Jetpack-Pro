@@ -8,6 +8,14 @@ import org.json.JSONObject;
 public class TvShowResponse extends MovieResponse {
     private String episode;
 
+    public TvShowResponse(){}
+
+    public void setTvResponse(String id, String title, String description, String releaseDate,
+                              String score, String imagePath, String episode){
+        super.setMovieResponse(id, title, description, releaseDate, score, imagePath);
+        this.episode = episode;
+    }
+
     public TvShowResponse(JSONObject jsonObject){
         super();
         try {
