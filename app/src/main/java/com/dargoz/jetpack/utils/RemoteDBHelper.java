@@ -1,7 +1,6 @@
 package com.dargoz.jetpack.utils;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -37,7 +36,6 @@ public class RemoteDBHelper {
 
     public void loadMovies(final ResponseListener responseListener) {
         final ArrayList<MovieResponse> movieResponses = new ArrayList<>();
-        Log.w("DRG","url movies : " + url);
         AndroidNetworking.get(url)
                 .setTag("movies")
                 .setPriority(Priority.HIGH)
@@ -66,7 +64,6 @@ public class RemoteDBHelper {
     }
 
     public void loadAllTvShows(final TvResponseListener responseListener){
-        Log.i("DRG","url : " + url);
         final ArrayList<TvShowResponse> tvShowResponses = new ArrayList<>();
         AndroidNetworking.get(url)
                 .setTag("tvShow")
@@ -90,7 +87,6 @@ public class RemoteDBHelper {
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.w("DRG","Error Tv " + anError.getErrorDetail());
                         responseListener.onTvError();
                     }
                 });
@@ -132,7 +128,6 @@ public class RemoteDBHelper {
 
     public void loadDetails(final MovieEntity movieEntity, final Constants.Category category,
                             final DetailsListener listener){
-        Log.i("DRG","url detail : " + url);
         AndroidNetworking.get(url)
                 .setTag("filmDetail")
                 .setPriority(Priority.HIGH)

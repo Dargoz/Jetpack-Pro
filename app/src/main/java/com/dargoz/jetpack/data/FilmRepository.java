@@ -1,15 +1,14 @@
 package com.dargoz.jetpack.data;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
+import com.dargoz.jetpack.data.source.local.entity.GenreEntity;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.data.source.remote.RemoteRepository;
 import com.dargoz.jetpack.data.source.remote.response.MovieResponse;
 import com.dargoz.jetpack.data.source.remote.response.TvShowResponse;
 import com.dargoz.jetpack.utils.Constants;
-import com.dargoz.jetpack.data.source.local.entity.GenreEntity;
 import com.dargoz.jetpack.utils.RemoteDBHelper;
 import com.dargoz.jetpack.utils.Utils;
 
@@ -65,14 +64,12 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
 
     @Override
     public void getAllMovies(RepositoryListener movieResponseListener) {
-        Log.w("DRG","get All Movie");
         remoteRepository.getAllMovies(this);
         this.repositoryListener = movieResponseListener;
     }
 
     @Override
     public void getAllTvShows(TvRepositoryListener tvRepositoryListener) {
-        Log.w("DRG","get All Tv");
         remoteRepository.getAllTvShows(this);
         this.tvRepositoryListener = tvRepositoryListener;
     }
@@ -80,7 +77,6 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
 
     @Override
     public void onResponse(ArrayList<MovieResponse> movieResponses) {
-        Log.i("DRG","movie Response " + movieResponses.get(0).getScore());
         ArrayList<MovieEntity> movieEntities = new ArrayList<>();
         try {
             for(MovieResponse movieResponse : movieResponses){

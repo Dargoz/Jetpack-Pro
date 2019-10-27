@@ -1,6 +1,11 @@
 package com.dargoz.jetpack.ui.movie;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,21 +16,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ProgressBar;
-
 import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
-
-import static com.dargoz.jetpack.utils.Constants.Category.*;
 import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 import java.util.List;
+
+import static com.dargoz.jetpack.utils.Constants.Category.URL_MOVIES;
 
 
 public class MovieFragment extends Fragment implements MovieViewModel.ErrorListener {
@@ -81,7 +79,6 @@ public class MovieFragment extends Fragment implements MovieViewModel.ErrorListe
     private final Observer<List<MovieEntity>> getMovies = new Observer<List<MovieEntity>>() {
         @Override
         public void onChanged(List<MovieEntity> movieEntities) {
-            Log.i("DRG","get info");
             progressBar.setVisibility(View.GONE);
             MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
             adapter.setMovieEntities(movieEntities);
@@ -94,6 +91,5 @@ public class MovieFragment extends Fragment implements MovieViewModel.ErrorListe
     public void onResponseError() {
         reloadButton.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-        Log.d("DRG","error get movie list");
     }
 }

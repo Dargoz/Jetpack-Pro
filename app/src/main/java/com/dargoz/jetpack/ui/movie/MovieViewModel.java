@@ -1,7 +1,7 @@
 package com.dargoz.jetpack.ui.movie;
 
 import android.graphics.Bitmap;
-import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel;
 import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.FilmRepository;
-import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.ImageEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.utils.ImageRepositoryList;
 import com.dargoz.jetpack.utils.Utils;
 
@@ -47,7 +47,6 @@ public class MovieViewModel extends ViewModel
 
     @Override
     public void onSuccess(ArrayList<MovieEntity> movieEntities) {
-        Log.d("DRG","success : " + movieEntities.size());
         movieItemList.setValue(movieEntities);
         this.movieEntities = movieEntities;
         for(MovieEntity movieEntity : movieEntities) {

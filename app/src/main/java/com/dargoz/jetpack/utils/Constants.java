@@ -16,7 +16,9 @@ public class Constants {
     public static final String MOVIES_KEY_RUNTIME = "runtime";
     public static final String TV_KEY_RUNTIME = "episode_run_time";
 
+    @SuppressWarnings("WeakerAccess")
     public static final String IMAGE_SIZE_W500 = "w500";
+    @SuppressWarnings("WeakerAccess")
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
 
     public enum Type {

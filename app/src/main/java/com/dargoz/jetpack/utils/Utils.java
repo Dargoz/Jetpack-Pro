@@ -16,6 +16,10 @@ public class Utils {
         Utils.application = application;
     }
 
+    public static Application getApplication() {
+        return application;
+    }
+
     public static int convertDpToPixel(float dp, Context context) {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
@@ -36,6 +40,7 @@ public class Utils {
         return String.format(Locale.getDefault(), "%dh %dm", runtime / 60, runtime % 60);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static String getObjectImageUrl(String url, String imageSize, String path) {
         return url + imageSize + path;
     }

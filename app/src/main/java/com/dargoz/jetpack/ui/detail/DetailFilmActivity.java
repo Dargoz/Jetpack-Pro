@@ -1,7 +1,8 @@
 package com.dargoz.jetpack.ui.detail;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.ui.GenreTextView;
+import com.dargoz.jetpack.utils.Utils;
 import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 import static com.dargoz.jetpack.utils.Constants.Category.URL_MOVIES;
@@ -48,8 +50,6 @@ public class DetailFilmActivity extends AppCompatActivity {
     }
 
     private DetailFimViewModel obtainViewModel(MovieEntity movieEntity){
-        Log.d("DRG","Movie entity id: " + movieEntity.getId());
-        Log.d("DRG","Movie entity name: " + movieEntity.getTitle());
         ViewModelFactory factory =
                 ViewModelFactory.getInstance(getApplication(),
                         movieEntity,
@@ -60,7 +60,6 @@ public class DetailFilmActivity extends AppCompatActivity {
     private final Observer<Object> getDetails = new Observer<Object>() {
         @Override
         public void onChanged(Object filmData) {
-            Log.i("DRG","getDetail Result : " + ((MovieEntity) filmData).getDuration());
             if (filmData instanceof TvShowEntity) {
                 episodeText.setText(String.format("Tv Shows | %s Episode",
                         ((TvShowEntity) filmData).getTotalEpisode()));
@@ -68,8 +67,7 @@ public class DetailFilmActivity extends AppCompatActivity {
             statusText.setText(((MovieEntity) filmData).getStatus());
             runtimeText.setText(((MovieEntity) filmData).getDuration());
             showGenreList(((MovieEntity) filmData).getGenre().split(","));
-            /*showLoading(false);
-            movieData = (MovieEntity) filmData;*/
+
         }
     };
 
@@ -93,7 +91,10 @@ public class DetailFilmActivity extends AppCompatActivity {
             movieEntity = viewModel.getTvShowEntity();
         }
         filmTitleText.setText(movieEntity.getTitle());
-        filmPosterImage.setImageBitmap(findImage(movieEntity.getId()));
+        Bitmap imagePoster = findImage(movieEntity.getId());
+        filmPosterImage.setImageBitmap(imagePoster == null ?
+                BitmapFactory.decodeResource(Utils.getApplication().getResources(),
+                R.drawable.baseline_broken_image_white_24): imagePoster);
         filmDescText.setText(movieEntity.getDescription());
         scoreText.setText(String.valueOf(movieEntity.getScore()));
     }
