@@ -4,13 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
-
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-
-import com.dargoz.jetpack.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

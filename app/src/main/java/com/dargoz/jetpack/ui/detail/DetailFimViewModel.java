@@ -13,8 +13,8 @@ import com.dargoz.jetpack.utils.Constants;
 
 
 public class DetailFimViewModel extends ViewModel implements FilmRepository.DetailsRepositoryListener {
-    private FilmRepository filmRepository;
-    private MutableLiveData<Object> filmObject = new MutableLiveData<>();
+    private final FilmRepository filmRepository;
+    private final MutableLiveData<Object> filmObject = new MutableLiveData<>();
     private static boolean isMovieEntity;
     private static MovieEntity movieEntity;
     private static TvShowEntity tvShowEntity;

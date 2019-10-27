@@ -4,7 +4,8 @@ import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.utils.Constants;
 import com.dargoz.jetpack.data.FilmRepository.*;
 
-public interface DataSource {
+@SuppressWarnings("unused")
+interface DataSource {
     void getAllMovies(RepositoryListener movieResponseListener);
     void getAllTvShows(TvRepositoryListener tvRepositoryListener);
     void getMovieImage(MovieEntity movieEntity, ImageRepositoryListener imageRepositoryListener);

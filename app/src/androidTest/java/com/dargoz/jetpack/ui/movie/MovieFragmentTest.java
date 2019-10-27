@@ -7,7 +7,6 @@ import androidx.test.rule.ActivityTestRule;
 import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.testing.SingleFragmentActivity;
-import com.dargoz.jetpack.ui.MainActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,9 +22,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class MovieFragmentTest {
     @Rule
-    public ActivityTestRule<SingleFragmentActivity> activityTestRule =
+    public final ActivityTestRule<SingleFragmentActivity> activityTestRule =
             new ActivityTestRule<>(SingleFragmentActivity.class);
-    private MovieFragment movieFragment = new MovieFragment();
+    private final MovieFragment movieFragment = new MovieFragment();
     @Before
     public void setUp() {
         activityTestRule.getActivity().setFragment(movieFragment);

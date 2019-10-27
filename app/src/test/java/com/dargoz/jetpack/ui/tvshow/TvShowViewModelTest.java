@@ -24,9 +24,9 @@ public class TvShowViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     private TvShowViewModel viewModel;
-    private FilmRepository filmRepository = mock(FilmRepository.class);
+    private final FilmRepository filmRepository = mock(FilmRepository.class);
     private final ArrayList<TvShowEntity> dummyTvShowList = new ArrayList<>();
-    private MutableLiveData<List<TvShowEntity>> tvShowList = new MutableLiveData<>();
+    private final MutableLiveData<List<TvShowEntity>> tvShowList = new MutableLiveData<>();
     @Before
     public void setUp() {
         viewModel = new TvShowViewModel(filmRepository);
@@ -49,6 +49,7 @@ public class TvShowViewModelTest {
         viewModel.getTvShowList();
     }
 
+    @SuppressWarnings("unchecked")
     private void verifyData(ArrayList<TvShowEntity> tvShowEntityArrayList){
         tvShowList.setValue(dummyTvShowList);
         when(tvShowEntityArrayList).then((Answer<?>) tvShowList);

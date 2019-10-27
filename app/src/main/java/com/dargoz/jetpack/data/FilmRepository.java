@@ -80,22 +80,32 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
 
     @Override
     public void onResponse(ArrayList<MovieResponse> movieResponses) {
+        Log.i("DRG","movie Response " + movieResponses.get(0).getScore());
         ArrayList<MovieEntity> movieEntities = new ArrayList<>();
-        for(MovieResponse movieResponse : movieResponses){
-            MovieEntity movieEntity = new MovieEntity(
-                    movieResponse.getId(),
-                    movieResponse.getTitle(),
-                    movieResponse.getDescription(),
-                    movieResponse.getReleaseDate(),
-                    movieResponse.getGenre(),
-                    movieResponse.getDuration(),
-                    Double.parseDouble(movieResponse.getScore()),
-                    movieResponse.getStatus(),
-                    movieResponse.getImagePath()
-            );
-            movieEntities.add(movieEntity);
+        try {
+            for(MovieResponse movieResponse : movieResponses){
+                MovieEntity movieEntity = new MovieEntity(
+                        movieResponse.getId(),
+                        movieResponse.getTitle(),
+                        movieResponse.getDescription(),
+                        movieResponse.getReleaseDate(),
+                        movieResponse.getGenre(),
+                        movieResponse.getDuration(),
+                        Double.parseDouble(movieResponse.getScore()),
+                        movieResponse.getStatus(),
+                        movieResponse.getImagePath()
+                );
+                movieEntities.add(movieEntity);
+            }
+            repositoryListener.onSuccess(movieEntities);
+        } catch (Exception e) {
+            repositoryListener.onError();
         }
-        repositoryListener.onSuccess(movieEntities);
+    }
+
+    @Override
+    public void onError() {
+        repositoryListener.onError();
     }
 
     @Override
@@ -119,8 +129,8 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
     }
 
     @Override
-    public void onError() {
-
+    public void onTvError() {
+        tvRepositoryListener.onError();
     }
 
     @Override

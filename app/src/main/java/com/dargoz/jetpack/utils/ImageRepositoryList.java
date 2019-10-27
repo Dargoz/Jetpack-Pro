@@ -7,7 +7,7 @@ import com.dargoz.jetpack.data.source.local.entity.ImageEntity;
 import java.util.ArrayList;
 
 public class ImageRepositoryList {
-    private static ArrayList<ImageEntity> imageEntityArrayList = new ArrayList<>();
+    private static final ArrayList<ImageEntity> imageEntityArrayList = new ArrayList<>();
 
     public static void addImage(ImageEntity imageEntity){
         imageEntityArrayList.add(imageEntity);

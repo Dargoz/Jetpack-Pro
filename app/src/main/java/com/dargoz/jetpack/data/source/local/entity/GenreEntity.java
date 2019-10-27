@@ -3,6 +3,7 @@ package com.dargoz.jetpack.data.source.local.entity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressWarnings("unused")
 public class GenreEntity {
     private int id;
     private String name;
@@ -15,6 +16,10 @@ public class GenreEntity {
             e.printStackTrace();
         }
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

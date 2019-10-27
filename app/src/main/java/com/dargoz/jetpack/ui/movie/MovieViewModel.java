@@ -20,15 +20,24 @@ import java.util.Objects;
 
 public class MovieViewModel extends ViewModel
         implements FilmRepository.RepositoryListener, FilmRepository.ImageRepositoryListener {
-    private MutableLiveData<List<MovieEntity>> movieItemList = new MutableLiveData<>();
+    private final MutableLiveData<List<MovieEntity>> movieItemList = new MutableLiveData<>();
     private ArrayList<MovieEntity> movieEntities = new ArrayList<>();
-    private FilmRepository filmRepository;
+    private final FilmRepository filmRepository;
+    private  ErrorListener errorListener;
+    interface ErrorListener {
+        void onResponseError();
+    }
 
     public MovieViewModel(FilmRepository filmRepository){
         this.filmRepository = filmRepository;
     }
+
     void setMovieEntities() {
         filmRepository.getAllMovies(this);
+    }
+
+    void setErrorCallbackListener(ErrorListener errorCallbackListener){
+        this.errorListener = errorCallbackListener;
     }
 
     LiveData<List<MovieEntity>> getMovieList(){
@@ -48,7 +57,7 @@ public class MovieViewModel extends ViewModel
 
     @Override
     public void onError() {
-        Log.d("DRG","Error");
+        errorListener.onResponseError();
     }
 
     @Override

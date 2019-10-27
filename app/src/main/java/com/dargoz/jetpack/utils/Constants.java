@@ -29,12 +29,12 @@ public class Constants {
     public enum Category{
         URL_MOVIES("movie"),
         URL_TV("tv");
-        private String value;
+        private final String value;
 
         Category(String value){
             this.value = value;
         }
-        public String getValue(){
+        String getValue(){
             return value;
         }
     }

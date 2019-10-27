@@ -27,9 +27,9 @@ public class MovieViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     private MovieViewModel viewModel;
-    private FilmRepository  filmRepository = mock(FilmRepository.class);
+    private final FilmRepository  filmRepository = mock(FilmRepository.class);
     private final ArrayList<MovieEntity> dummyMovieList = new ArrayList<>();
-    private MutableLiveData<List<MovieEntity>> movieList = new MutableLiveData<>();
+    private final MutableLiveData<List<MovieEntity>> movieList = new MutableLiveData<>();
 
     @Before
     public void setUp() {
@@ -54,6 +54,7 @@ public class MovieViewModelTest {
 
     }
 
+    @SuppressWarnings("unchecked")
     private void verifyMovieList(ArrayList<MovieEntity> movieEntityArrayList){
         movieList.setValue(dummyMovieList);
         when(movieEntityArrayList).then((Answer<?>) movieList);

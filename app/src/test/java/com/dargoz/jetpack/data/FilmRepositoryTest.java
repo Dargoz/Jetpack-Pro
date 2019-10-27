@@ -29,22 +29,22 @@ public class FilmRepositoryTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    private RemoteRepository remote = mock(RemoteRepository.class);
-    private FakeFilmRepository filmRepository = new FakeFilmRepository(remote);
+    private final RemoteRepository remote = mock(RemoteRepository.class);
+    private final FakeFilmRepository filmRepository = new FakeFilmRepository(remote);
 
-    private ArrayList<MovieResponse> movieResponses = DummyData.generateMovieResponse();
-    private ArrayList<TvShowResponse> tvShowResponses = DummyData.generateTvShowResponse();
-    private MovieEntity movieEntity = mock(MovieEntity.class);
-    private Bitmap imageBitmap = mock(Bitmap.class);
-    private JSONObject response = mock(JSONObject.class);
+    private final ArrayList<MovieResponse> movieResponses = DummyData.generateMovieResponse();
+    private final ArrayList<TvShowResponse> tvShowResponses = DummyData.generateTvShowResponse();
+    private final MovieEntity movieEntity = mock(MovieEntity.class);
+    private final Bitmap imageBitmap = mock(Bitmap.class);
+    private final JSONObject response = mock(JSONObject.class);
 
-    private FilmRepository.ImageRepositoryListener imageRepositoryListener =
+    private final FilmRepository.ImageRepositoryListener imageRepositoryListener =
             mock(FilmRepository.ImageRepositoryListener.class);
-    private FilmRepository.DetailsRepositoryListener detailsRepositoryListener =
+    private final FilmRepository.DetailsRepositoryListener detailsRepositoryListener =
             mock(FilmRepository.DetailsRepositoryListener.class);
-    private RemoteDBHelper.DetailsListener detailsListener =
+    private final RemoteDBHelper.DetailsListener detailsListener =
             mock(RemoteDBHelper.DetailsListener.class);
-    private RemoteDBHelper.ImageResponseListener imageResponseListener =
+    private final RemoteDBHelper.ImageResponseListener imageResponseListener =
             mock(RemoteDBHelper.ImageResponseListener.class);
 
 

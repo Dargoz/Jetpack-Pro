@@ -7,7 +7,6 @@ import androidx.test.rule.ActivityTestRule;
 import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.testing.SingleFragmentActivity;
-import com.dargoz.jetpack.ui.MainActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,18 +15,15 @@ import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.pressBack;
-import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class TvShowFragmentTest {
     @Rule
-    public ActivityTestRule<SingleFragmentActivity > activityTestRule =
+    public final ActivityTestRule<SingleFragmentActivity > activityTestRule =
             new ActivityTestRule<>(SingleFragmentActivity .class);
-    private TvShowFragment tvShowFragment = new TvShowFragment();
+    private final TvShowFragment tvShowFragment = new TvShowFragment();
 
     @Before
     public void setUp() {

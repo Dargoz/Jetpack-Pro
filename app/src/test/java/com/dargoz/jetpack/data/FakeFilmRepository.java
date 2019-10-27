@@ -22,7 +22,7 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
         RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener,
         RemoteDBHelper.DetailsListener{
     private volatile static FakeFilmRepository INSTANCE = null;
-    private RemoteRepository remoteRepository;
+    private final RemoteRepository remoteRepository;
     private FilmRepository.RepositoryListener repositoryListener;
     private FilmRepository.TvRepositoryListener tvRepositoryListener;
     private FilmRepository.ImageRepositoryListener imageRepositoryListener;
@@ -43,13 +43,6 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
         this.detailsListener = detailsListener;
     }
 
-
-    public static FakeFilmRepository getInstance(RemoteRepository remoteRepository) {
-        if(INSTANCE  == null){
-            INSTANCE = new FakeFilmRepository(remoteRepository);
-        }
-        return INSTANCE;
-    }
 
     @Override
     public void getAllMovies(FilmRepository.RepositoryListener movieResponseListener) {
@@ -85,6 +78,11 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
     }
 
     @Override
+    public void onError() {
+
+    }
+
+    @Override
     public void onTvResponse(ArrayList<TvShowResponse> tvShowResponses) {
         ArrayList<TvShowEntity> tvShowEntities = new ArrayList<>();
         for(TvShowResponse tvShowResponse : tvShowResponses){
@@ -105,7 +103,7 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
     }
 
     @Override
-    public void onError() {
+    public void onTvError() {
 
     }
 

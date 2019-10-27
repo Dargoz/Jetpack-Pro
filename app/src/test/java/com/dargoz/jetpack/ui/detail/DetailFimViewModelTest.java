@@ -28,8 +28,8 @@ public class DetailFimViewModelTest {
     @Mock
     private Intent intent;
 
-    private FilmRepository filmRepository = mock(FilmRepository.class);
-    private MutableLiveData<Object> filmObject = new MutableLiveData<>();
+    private final FilmRepository filmRepository = mock(FilmRepository.class);
+    private final MutableLiveData<Object> filmObject = new MutableLiveData<>();
     private MovieEntity movieEntity;
     private TvShowEntity tvShowEntity;
 

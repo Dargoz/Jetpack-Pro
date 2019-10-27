@@ -3,8 +3,8 @@ package com.dargoz.jetpack.data.source.local.entity;
 import android.graphics.Bitmap;
 
 public class ImageEntity {
-    private int id;
-    private Bitmap bitmap;
+    private final int id;
+    private final Bitmap bitmap;
 
     public ImageEntity(int id, Bitmap bitmap) {
         this.id = id;

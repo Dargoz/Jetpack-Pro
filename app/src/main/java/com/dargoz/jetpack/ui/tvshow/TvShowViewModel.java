@@ -21,16 +21,23 @@ import java.util.Objects;
 
 public class TvShowViewModel extends ViewModel implements FilmRepository.TvRepositoryListener,
         FilmRepository.ImageRepositoryListener{
-    private MutableLiveData<List<TvShowEntity>> tvShowItemList = new MutableLiveData<>();
+    private final MutableLiveData<List<TvShowEntity>> tvShowItemList = new MutableLiveData<>();
     private ArrayList<TvShowEntity> tvShowEntities = new ArrayList<>();
-    private FilmRepository filmRepository;
-
+    private final FilmRepository filmRepository;
+    private  ErrorListener errorListener;
+    interface ErrorListener {
+        void onResponseError();
+    }
     public TvShowViewModel(FilmRepository filmRepository){
         this.filmRepository = filmRepository;
     }
 
     void setTvShowEntities() {
         filmRepository.getAllTvShows(this);
+    }
+
+    void setErrorCallbackListener(ErrorListener errorCallbackListener){
+        this.errorListener = errorCallbackListener;
     }
 
     LiveData<List<TvShowEntity>> getTvShowList(){
@@ -48,7 +55,7 @@ public class TvShowViewModel extends ViewModel implements FilmRepository.TvRepos
 
     @Override
     public void onError() {
-
+        errorListener.onResponseError();
     }
 
     @Override

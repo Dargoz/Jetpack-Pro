@@ -9,4 +9,16 @@
         android:id="@+id/tv_show_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <Button
+        android:id="@+id/tv_reload_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reload_text"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+    <ProgressBar
+        android:id="@+id/tv_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 </FrameLayout>

@@ -13,11 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.dargoz.jetpack.ui.GenreTextView;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
-import com.dargoz.jetpack.utils.Constants;
+import com.dargoz.jetpack.ui.GenreTextView;
 import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 import static com.dargoz.jetpack.utils.Constants.Category.URL_MOVIES;
@@ -25,15 +24,15 @@ import static com.dargoz.jetpack.utils.Constants.Category.URL_TV;
 import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 
 public class DetailFilmActivity extends AppCompatActivity {
-    DetailFimViewModel viewModel;
-    TextView filmTitleText;
-    ImageView filmPosterImage;
-    TextView episodeText;
-    TextView filmDescText;
-    TextView scoreText;
-    TextView runtimeText;
+    private DetailFimViewModel viewModel;
+    private TextView filmTitleText;
+    private ImageView filmPosterImage;
+    private TextView episodeText;
+    private TextView filmDescText;
+    private TextView scoreText;
+    private TextView runtimeText;
     private LinearLayout genreGridView;
-    TextView statusText;
+    private TextView statusText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +57,7 @@ public class DetailFilmActivity extends AppCompatActivity {
         return ViewModelProviders.of(this,factory).get(DetailFimViewModel.class);
     }
 
-    private Observer<Object> getDetails = new Observer<Object>() {
+    private final Observer<Object> getDetails = new Observer<Object>() {
         @Override
         public void onChanged(Object filmData) {
             Log.i("DRG","getDetail Result : " + ((MovieEntity) filmData).getDuration());

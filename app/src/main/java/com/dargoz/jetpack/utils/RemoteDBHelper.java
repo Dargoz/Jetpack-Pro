@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class RemoteDBHelper {
-    private String url;
+    private final String url;
 
     public RemoteDBHelper(String url) {
         this.url = url;
@@ -32,11 +32,12 @@ public class RemoteDBHelper {
 
     public interface TvResponseListener {
         void onTvResponse(ArrayList<TvShowResponse> tvShowResponses);
-        void onError();
+        void onTvError();
     }
 
     public void loadMovies(final ResponseListener responseListener) {
         final ArrayList<MovieResponse> movieResponses = new ArrayList<>();
+        Log.w("DRG","url movies : " + url);
         AndroidNetworking.get(url)
                 .setTag("movies")
                 .setPriority(Priority.HIGH)
@@ -90,7 +91,7 @@ public class RemoteDBHelper {
                     @Override
                     public void onError(ANError anError) {
                         Log.w("DRG","Error Tv " + anError.getErrorDetail());
-                        responseListener.onError();
+                        responseListener.onTvError();
                     }
                 });
     }

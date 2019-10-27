@@ -1,8 +1,5 @@
 package com.dargoz.jetpack.utils;
 
-import android.graphics.Bitmap;
-
-import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.remote.response.MovieResponse;
 import com.dargoz.jetpack.data.source.remote.response.TvShowResponse;
 
@@ -39,18 +36,6 @@ public class DummyData {
         );
         tvShowResponses.add(tvShowResponse);
         return tvShowResponses;
-    }
-
-    public static MovieEntity generateMovieEntity(){
-        return new MovieEntity(
-                "31",
-                "Deadpool",
-                "comedy super hero movie",
-                "2017",
-                "Action, Comedy",
-                "125",8.6,
-                "released",
-                "");
     }
 
 

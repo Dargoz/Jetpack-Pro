@@ -10,9 +10,9 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    private TabLayout tabLayout;
+    private final TabLayout tabLayout;
 
     ViewPagerAdapter(@NonNull FragmentManager fragmentManager, TabLayout tabLayout){
         super(fragmentManager, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

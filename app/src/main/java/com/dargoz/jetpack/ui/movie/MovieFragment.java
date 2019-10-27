@@ -15,20 +15,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
-import com.dargoz.jetpack.utils.Constants;
+
 import static com.dargoz.jetpack.utils.Constants.Category.*;
 import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 import java.util.List;
 
 
-public class MovieFragment extends Fragment {
+public class MovieFragment extends Fragment implements MovieViewModel.ErrorListener {
     private View root;
     private RecyclerView movieRecyclerView;
+    private Button reloadButton;
+    private ProgressBar progressBar;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -44,10 +48,10 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        DummyData.prepareMovieData(view.getContext());
+        reloadButton = root.findViewById(R.id.movie_reload_button);
+        progressBar = root.findViewById(R.id.movie_progress_bar);
         movieRecyclerView = root.findViewById(R.id.movie_recycler_view);
         movieRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
-
     }
 
     @Override
@@ -56,8 +60,15 @@ public class MovieFragment extends Fragment {
         EspressoIdlingResource.increment();
         if(getActivity() != null){
             MovieViewModel viewModel = obtainViewModel(getActivity());
+            viewModel.setErrorCallbackListener(this);
             viewModel.setMovieEntities();
             viewModel.getMovieList().observe(this, getMovies);
+            reloadButton.setOnClickListener(viewButton -> {
+                progressBar.setVisibility(View.VISIBLE);
+                reloadButton.setVisibility(View.GONE);
+                obtainViewModel(getActivity());
+                viewModel.setMovieEntities();
+            });
         }
     }
 
@@ -67,14 +78,22 @@ public class MovieFragment extends Fragment {
         return ViewModelProviders.of(activity, factory).get(MovieViewModel.class);
     }
 
-    private Observer<List<MovieEntity>> getMovies = new Observer<List<MovieEntity>>() {
+    private final Observer<List<MovieEntity>> getMovies = new Observer<List<MovieEntity>>() {
         @Override
         public void onChanged(List<MovieEntity> movieEntities) {
             Log.i("DRG","get info");
+            progressBar.setVisibility(View.GONE);
             MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
             adapter.setMovieEntities(movieEntities);
             movieRecyclerView.setAdapter(adapter);
 
         }
     };
+
+    @Override
+    public void onResponseError() {
+        reloadButton.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        Log.d("DRG","error get movie list");
+    }
 }
