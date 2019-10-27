@@ -10,6 +10,7 @@ import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.utils.Constants;
+import com.dargoz.jetpack.utils.LiveDataTestUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 
+import java.util.List;
+
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -46,7 +50,7 @@ public class DetailFimViewModelTest {
                 "135 minute",
                 Double.parseDouble("8.5"),
                 "Released",
-                R.drawable.poster_avengerinfinity
+                R.drawable.arrow
         );
         tvShowEntity = new TvShowEntity(
                 "Arrow",
@@ -92,11 +96,13 @@ public class DetailFimViewModelTest {
         filmRepository.getFilmDetails(movieEntity, Constants.Category.URL_MOVIES, this::verifyData);
     }
 
+    @SuppressWarnings("All")
     private void verifyData(Object object){
         filmObject.setValue(object);
-        @SuppressWarnings("All")
         Observer<Object> observer = mock(Observer.class);
         viewModel.gerFilmDetails().observeForever(observer);
         verify(observer).onChanged(object);
+        List<Object> result = (List<Object>) LiveDataTestUtils.getValue(viewModel.gerFilmDetails());
+        assertNotNull(result);
     }
 }

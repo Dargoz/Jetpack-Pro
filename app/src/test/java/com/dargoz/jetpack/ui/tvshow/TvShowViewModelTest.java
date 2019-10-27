@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 
 import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
+import com.dargoz.jetpack.utils.LiveDataTestUtils;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,6 +16,7 @@ import org.mockito.stubbing.Answer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -56,5 +58,7 @@ public class TvShowViewModelTest {
         Observer<List<TvShowEntity>> observer = mock(Observer.class);
         viewModel.getTvShowList().observeForever(observer);
         verify(observer).onChanged(dummyTvShowList);
+        List<TvShowEntity> result = LiveDataTestUtils.getValue(viewModel.getTvShowList());
+        assertNotNull(result);
     }
 }

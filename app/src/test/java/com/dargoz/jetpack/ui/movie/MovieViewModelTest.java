@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 
 import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.utils.LiveDataTestUtils;
 
 
 import org.junit.Before;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -51,7 +53,6 @@ public class MovieViewModelTest {
             }
         });
 
-
     }
 
     @SuppressWarnings("unchecked")
@@ -61,5 +62,7 @@ public class MovieViewModelTest {
         Observer<List<MovieEntity>> observer = mock(Observer.class);
         viewModel.getMovieList().observeForever(observer);
         verify(observer).onChanged(dummyMovieList);
+        List<MovieEntity> result = LiveDataTestUtils.getValue(viewModel.getMovieList());
+        assertNotNull(result);
     }
 }
