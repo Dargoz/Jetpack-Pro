@@ -83,12 +83,7 @@ public class TvShowRecyclerViewAdapter extends RecyclerView.Adapter<TvShowRecycl
                 }
                 shimmerFrameLayout.setVisibility(View.GONE);
             }
-            tvShowContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    navigateView(tvShowEntity);
-                }
-            });
+            tvShowContainer.setOnClickListener(view -> navigateView(tvShowEntity));
             Glide.with(context)
                     .load(bitmap)
                     .placeholder(R.drawable.rounded_rect_grey)

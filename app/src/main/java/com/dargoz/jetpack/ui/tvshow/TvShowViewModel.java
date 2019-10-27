@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
@@ -16,6 +17,7 @@ import com.dargoz.jetpack.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TvShowViewModel extends ViewModel implements FilmRepository.TvRepositoryListener,
         FilmRepository.ImageRepositoryListener{
@@ -53,6 +55,11 @@ public class TvShowViewModel extends ViewModel implements FilmRepository.TvRepos
     public void onImageResponse(MovieEntity movieEntity, Bitmap bitmap) {
         ImageRepositoryList.addImage(new ImageEntity(movieEntity.getId(), bitmap));
         tvShowItemList.setValue(tvShowEntities);
+        if (Objects.requireNonNull(tvShowItemList.getValue()).get(0).getId() == movieEntity.getId()){
+            if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()){
+                EspressoIdlingResource.decrement();
+            }
+        }
     }
 
     @Override

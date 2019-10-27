@@ -3,7 +3,6 @@ package com.dargoz.jetpack.ui.movie;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,12 +83,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
                 shimmerFrameLayout.setVisibility(View.GONE);
             }
 
-            movieContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    navigateView(movieEntity);
-                }
-            });
+            movieContainer.setOnClickListener(view -> navigateView(movieEntity));
             Glide.with(context)
                     .load(bitmap)
                     .placeholder(R.drawable.rounded_rect_grey)
