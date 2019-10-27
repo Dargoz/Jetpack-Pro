@@ -8,6 +8,6 @@ import com.dargoz.jetpack.data.FilmRepository.*;
 interface DataSource {
     void getAllMovies(RepositoryListener movieResponseListener);
     void getAllTvShows(TvRepositoryListener tvRepositoryListener);
-    void getMovieImage(MovieEntity movieEntity, ImageRepositoryListener imageRepositoryListener);
+    void getFilmImage(MovieEntity movieEntity, ImageRepositoryListener imageRepositoryListener);
     void getFilmDetails(MovieEntity movieEntity, Constants.Category category, DetailsRepositoryListener listener);
 }

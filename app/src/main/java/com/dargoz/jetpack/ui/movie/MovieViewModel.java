@@ -50,7 +50,7 @@ public class MovieViewModel extends ViewModel
         movieItemList.setValue(movieEntities);
         this.movieEntities = movieEntities;
         for(MovieEntity movieEntity : movieEntities) {
-            filmRepository.getMovieImage(movieEntity, this);
+            filmRepository.getFilmImage(movieEntity, this);
         }
     }
 

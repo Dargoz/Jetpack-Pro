@@ -49,7 +49,7 @@ public class TvShowViewModel extends ViewModel implements FilmRepository.TvRepos
         tvShowItemList.setValue(tvShowEntities);
         this.tvShowEntities = tvShowEntities;
         for(TvShowEntity tvShowEntity : tvShowEntities){
-            filmRepository.getMovieImage(tvShowEntity, this);
+            filmRepository.getFilmImage(tvShowEntity, this);
         }
     }
 

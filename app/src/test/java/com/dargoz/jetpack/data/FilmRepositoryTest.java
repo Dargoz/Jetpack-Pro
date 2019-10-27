@@ -82,8 +82,8 @@ public class FilmRepositoryTest {
     }
 
     @Test
-    public void getMovieImage() {
-        filmRepository.getMovieImage(movieEntity, imageRepositoryListener);
+    public void getFilmImage() {
+        filmRepository.getFilmImage(movieEntity, imageRepositoryListener);
         doAnswer(invocation -> {
             ((FakeFilmRepository) invocation.getArguments()[0])
                     .onImageResponse(movieEntity, imageBitmap);

@@ -130,7 +130,7 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
     }
 
     @Override
-    public void getMovieImage(MovieEntity movieEntity, ImageRepositoryListener imageRepositoryListener) {
+    public void getFilmImage(MovieEntity movieEntity, ImageRepositoryListener imageRepositoryListener) {
         remoteRepository.getImage(movieEntity, this);
         this.imageRepositoryListener = imageRepositoryListener;
     }

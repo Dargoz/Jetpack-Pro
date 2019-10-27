@@ -108,7 +108,7 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
     }
 
     @Override
-    public void getMovieImage(MovieEntity movieEntity, FilmRepository.ImageRepositoryListener imageRepositoryListener) {
+    public void getFilmImage(MovieEntity movieEntity, FilmRepository.ImageRepositoryListener imageRepositoryListener) {
         remoteRepository.getImage(movieEntity, imageResponseListener);
         this.imageRepositoryListener = imageRepositoryListener;
     }
