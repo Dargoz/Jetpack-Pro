@@ -29,6 +29,7 @@ public class Utils {
         try {
             SimpleDateFormat newDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
             Date date = dateFormat.parse(dateString);
+            assert date != null;
             return newDateFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();

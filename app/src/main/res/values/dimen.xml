@@ -15,12 +15,6 @@
 
     <dimen name="main_poster_height">200dp</dimen>
     <dimen name="main_poster_width">130dp</dimen>
-    <dimen name="poster_placeholder_width">210dp</dimen>
     <dimen name="detail_poster_height">300dp</dimen>
 
-    <dimen name="favorite_poster_width">60dp</dimen>
-
-    <dimen name="icon_size">20dp</dimen>
-
-    <dimen name="widget_margin">8dp</dimen>
 </resources>

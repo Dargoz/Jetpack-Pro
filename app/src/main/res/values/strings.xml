@@ -15,7 +15,6 @@
     <string name="tv_show_tab_title">Tv Show</string>
 
     <string name="detail_film_title_text">Detail Film</string>
-    <string name="template_genre_text">Action</string>
     <string name="template_genre_title_text">Genre</string>
     <string name="template_status_title_text">Status</string>
     <string name="template_status_text">Released</string>
@@ -25,7 +24,6 @@
     <string name="template_score_text">8.3</string>
     <string name="template_runtime_text">2h 29m</string>
     <string name="default_language">en-US</string>
-    <string name="language_setting_text">Language Setting</string>
     <string name="template_episode_text">Tv Total : 22 Episodes</string>
     <string name="runtime_icon_text">runtime icon</string>
 

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseListener,
         RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener,
         RemoteDBHelper.DetailsListener{
-    private volatile static FakeFilmRepository INSTANCE = null;
+
     private final RemoteRepository remoteRepository;
     private FilmRepository.RepositoryListener repositoryListener;
     private FilmRepository.TvRepositoryListener tvRepositoryListener;
