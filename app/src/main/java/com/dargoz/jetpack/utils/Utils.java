@@ -16,9 +16,7 @@ public class Utils {
         Utils.application = application;
     }
 
-    public static Application getApplication() {
-        return application;
-    }
+
 
     public static int convertDpToPixel(float dp, Context context) {
         return (int) (dp * context.getResources().getDisplayMetrics().density);

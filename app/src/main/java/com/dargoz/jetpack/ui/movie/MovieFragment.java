@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.viewmodel.ViewModelFactory;
@@ -55,7 +54,6 @@ public class MovieFragment extends Fragment implements MovieViewModel.ErrorListe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        EspressoIdlingResource.increment();
         if(getActivity() != null){
             MovieViewModel viewModel = obtainViewModel(getActivity());
             viewModel.setErrorCallbackListener(this);

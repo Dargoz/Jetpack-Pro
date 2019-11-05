@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.utils.Constants;
@@ -56,7 +55,6 @@ public class TvShowFragment extends Fragment implements TvShowViewModel.ErrorLis
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        EspressoIdlingResource.increment();
         if(getActivity() != null){
             TvShowViewModel viewModel = obtainViewModel(getActivity());
             viewModel.setErrorCallbackListener(this);

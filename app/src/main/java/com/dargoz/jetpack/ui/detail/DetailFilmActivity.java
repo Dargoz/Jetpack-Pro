@@ -18,7 +18,6 @@ import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.ui.GenreTextView;
-import com.dargoz.jetpack.utils.Utils;
 import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 import static com.dargoz.jetpack.utils.Constants.Category.URL_MOVIES;
@@ -93,7 +92,7 @@ public class DetailFilmActivity extends AppCompatActivity {
         filmTitleText.setText(movieEntity.getTitle());
         Bitmap imagePoster = findImage(movieEntity.getId());
         filmPosterImage.setImageBitmap(imagePoster == null ?
-                BitmapFactory.decodeResource(Utils.getApplication().getResources(),
+                BitmapFactory.decodeResource(getResources(),
                 R.drawable.baseline_broken_image_white_24): imagePoster);
         filmDescText.setText(movieEntity.getDescription());
         scoreText.setText(String.valueOf(movieEntity.getScore()));

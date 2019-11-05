@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.data.FilmRepository;
 import com.dargoz.jetpack.data.source.local.entity.ImageEntity;
@@ -16,7 +15,6 @@ import com.dargoz.jetpack.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MovieViewModel extends ViewModel
         implements FilmRepository.RepositoryListener, FilmRepository.ImageRepositoryListener {
@@ -63,11 +61,6 @@ public class MovieViewModel extends ViewModel
     public void onImageResponse(MovieEntity movieEntity, Bitmap bitmap) {
         ImageRepositoryList.addImage(new ImageEntity(movieEntity.getId(), bitmap));
         movieItemList.setValue(movieEntities);
-        if(Objects.requireNonNull(movieItemList.getValue()).get(0).getId() == movieEntity.getId()) {
-            if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
-                EspressoIdlingResource.decrement();
-            }
-        }
     }
 
     @Override

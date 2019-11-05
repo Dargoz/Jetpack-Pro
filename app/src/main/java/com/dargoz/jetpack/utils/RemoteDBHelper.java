@@ -7,6 +7,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.dargoz.jetpack.EspressoIdlingResource;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.remote.response.MovieResponse;
 import com.dargoz.jetpack.data.source.remote.response.TvShowResponse;
@@ -35,6 +36,7 @@ public class RemoteDBHelper {
     }
 
     public void loadMovies(final ResponseListener responseListener) {
+        EspressoIdlingResource.increment();
         final ArrayList<MovieResponse> movieResponses = new ArrayList<>();
         AndroidNetworking.get(url)
                 .setTag("movies")
@@ -59,11 +61,15 @@ public class RemoteDBHelper {
                     @Override
                     public void onError(ANError anError) {
                         responseListener.onError();
+                        if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                            EspressoIdlingResource.decrement();
+                        }
                     }
                 });
     }
 
     public void loadAllTvShows(final TvResponseListener responseListener){
+        EspressoIdlingResource.increment();
         final ArrayList<TvShowResponse> tvShowResponses = new ArrayList<>();
         AndroidNetworking.get(url)
                 .setTag("tvShow")
@@ -88,6 +94,9 @@ public class RemoteDBHelper {
                     @Override
                     public void onError(ANError anError) {
                         responseListener.onTvError();
+                        if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                            EspressoIdlingResource.decrement();
+                        }
                     }
                 });
     }
@@ -112,11 +121,17 @@ public class RemoteDBHelper {
                     @Override
                     public void onResponse(Bitmap response) {
                         listener.onImageResponse(movieEntity, response);
+                        if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                            EspressoIdlingResource.decrement();
+                        }
                     }
 
                     @Override
                     public void onError(ANError anError) {
                         listener.onImageError(movieEntity);
+                        if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                            EspressoIdlingResource.decrement();
+                        }
                     }
                 });
     }
