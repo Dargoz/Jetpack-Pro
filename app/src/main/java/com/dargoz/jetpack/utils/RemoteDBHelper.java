@@ -53,6 +53,9 @@ public class RemoteDBHelper {
                                 movieResponses.add(new MovieResponse(movieObject));
                             }
                             responseListener.onResponse(movieResponses);
+                            if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                                EspressoIdlingResource.decrement();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -86,6 +89,9 @@ public class RemoteDBHelper {
                                 tvShowResponses.add(new TvShowResponse(tvShowObject));
                             }
                             responseListener.onTvResponse(tvShowResponses);
+                            if(!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                                EspressoIdlingResource.decrement();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
