@@ -2,7 +2,13 @@ package com.dargoz.jetpack.data.source.local.entity;
 
 import android.os.Parcel;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+
+@Entity(tableName = "tvShow")
 public class TvShowEntity extends MovieEntity {
+
+    @ColumnInfo(name = "totalEpisode")
     private String totalEpisode;
 
     public TvShowEntity(String title, String description, String releaseDate, String genre,
