@@ -1,30 +1,49 @@
 package com.dargoz.jetpack.ui.detail;
 
 import android.content.Intent;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dargoz.jetpack.data.MovieEntity;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.FilmRepository;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.utils.Constants;
 
 
-@SuppressWarnings("WeakerAccess")
-public class DetailFimViewModel extends ViewModel {
-    private boolean isMovieEntity;
-    private MovieEntity movieEntity;
-    private TvShowEntity tvShowEntity;
+public class DetailFimViewModel extends ViewModel implements FilmRepository.DetailsRepositoryListener {
+    private final FilmRepository filmRepository;
+    private final MutableLiveData<Object> filmObject = new MutableLiveData<>();
+    private static boolean isMovieEntity;
+    private static MovieEntity movieEntity;
+    private static TvShowEntity tvShowEntity;
 
-    void prepareData(Intent intent){
+    public DetailFimViewModel(FilmRepository filmRepository){
+        this.filmRepository = filmRepository;
+    }
+
+    void setFilmDetails(MovieEntity movieEntity, Constants.Category category){
+        filmRepository.getFilmDetails(movieEntity, category, this);
+    }
+
+    LiveData<Object> gerFilmDetails () {
+        return filmObject;
+    }
+
+    static MovieEntity prepareData(Intent intent){
         if(intent.getParcelableExtra(Constants.MOVIE_INTENT) == null){
             tvShowEntity = intent.getParcelableExtra(Constants.TV_SHOW_INTENT);
             isMovieEntity = false;
+            return  tvShowEntity;
         }else{
             movieEntity = intent.getParcelableExtra(Constants.MOVIE_INTENT);
             isMovieEntity = true;
+            return movieEntity;
         }
     }
 
-    boolean isMovieEntity() {
+    static boolean isMovieEntity() {
         return isMovieEntity;
     }
 
@@ -34,5 +53,10 @@ public class DetailFimViewModel extends ViewModel {
 
     TvShowEntity getTvShowEntity() {
         return tvShowEntity;
+    }
+
+    @Override
+    public void onDetailsDataResponse(Object object) {
+        filmObject.setValue(object);
     }
 }

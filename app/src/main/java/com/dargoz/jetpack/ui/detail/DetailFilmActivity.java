@@ -1,5 +1,7 @@
 package com.dargoz.jetpack.ui.detail;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,33 +11,64 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.dargoz.jetpack.ui.GenreTextView;
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
-import com.dargoz.jetpack.data.TvShowEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
+import com.dargoz.jetpack.ui.GenreTextView;
+import com.dargoz.jetpack.viewmodel.ViewModelFactory;
+
+import static com.dargoz.jetpack.utils.Constants.Category.URL_MOVIES;
+import static com.dargoz.jetpack.utils.Constants.Category.URL_TV;
+import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 
 public class DetailFilmActivity extends AppCompatActivity {
-    DetailFimViewModel viewModel;
-    TextView filmTitleText;
-    ImageView filmPosterImage;
-    TextView episodeText;
-    TextView filmDescText;
-    TextView scoreText;
-    TextView runtimeText;
+    private DetailFimViewModel viewModel;
+    private TextView filmTitleText;
+    private ImageView filmPosterImage;
+    private TextView episodeText;
+    private TextView filmDescText;
+    private TextView scoreText;
+    private TextView runtimeText;
     private LinearLayout genreGridView;
-    TextView statusText;
+    private TextView statusText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_film);
-        viewModel = ViewModelProviders.of(this).get(DetailFimViewModel.class);
-        viewModel.prepareData(getIntent());
         setupView();
+        MovieEntity movieEntity = DetailFimViewModel.prepareData(getIntent());
+        viewModel = obtainViewModel(movieEntity);
+        viewModel.setFilmDetails(movieEntity, DetailFimViewModel.isMovieEntity() ? URL_MOVIES : URL_TV);
+        viewModel.gerFilmDetails().observe(this, getDetails);
+
         initData();
     }
+
+    private DetailFimViewModel obtainViewModel(MovieEntity movieEntity){
+        ViewModelFactory factory =
+                ViewModelFactory.getInstance(getApplication(),
+                        movieEntity,
+                        DetailFimViewModel.isMovieEntity() ? URL_MOVIES : URL_TV);
+        return ViewModelProviders.of(this,factory).get(DetailFimViewModel.class);
+    }
+
+    private final Observer<Object> getDetails = new Observer<Object>() {
+        @Override
+        public void onChanged(Object filmData) {
+            if (filmData instanceof TvShowEntity) {
+                episodeText.setText(String.format("Tv Shows | %s Episode",
+                        ((TvShowEntity) filmData).getTotalEpisode()));
+            }
+            statusText.setText(((MovieEntity) filmData).getStatus());
+            runtimeText.setText(((MovieEntity) filmData).getDuration());
+            showGenreList(((MovieEntity) filmData).getGenre().split(","));
+
+        }
+    };
 
     private void setupView(){
         filmTitleText = findViewById(R.id.detail_title_text_view);
@@ -50,22 +83,19 @@ public class DetailFilmActivity extends AppCompatActivity {
 
     private void initData(){
         MovieEntity movieEntity;
-        if(viewModel.isMovieEntity()){
+        if(DetailFimViewModel.isMovieEntity()){
             movieEntity = viewModel.getMovieEntity();
             episodeText.setVisibility(View.INVISIBLE);
         }else{
-            TvShowEntity tvShowEntity = viewModel.getTvShowEntity();
-            movieEntity = tvShowEntity;
-            episodeText.setText(String.format("Tv Shows | %s",tvShowEntity.getTotalEpisode()));
+            movieEntity = viewModel.getTvShowEntity();
         }
         filmTitleText.setText(movieEntity.getTitle());
-        filmPosterImage.setImageResource(movieEntity.getImage());
+        Bitmap imagePoster = findImage(movieEntity.getId());
+        filmPosterImage.setImageBitmap(imagePoster == null ?
+                BitmapFactory.decodeResource(getResources(),
+                R.drawable.baseline_broken_image_white_24): imagePoster);
         filmDescText.setText(movieEntity.getDescription());
         scoreText.setText(String.valueOf(movieEntity.getScore()));
-        runtimeText.setText(movieEntity.getDuration());
-        String[] genreList = movieEntity.getGenre().split(",");
-        showGenreList(genreList);
-        statusText.setText(movieEntity.getStatus());
     }
 
     private void showGenreList(String[] genreList) {

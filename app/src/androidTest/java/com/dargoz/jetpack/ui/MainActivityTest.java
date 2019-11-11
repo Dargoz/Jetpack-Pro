@@ -4,7 +4,6 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.dargoz.jetpack.R;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -18,10 +17,6 @@ public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Before
-    public void setUp() {
-
-    }
 
     @Test
     public void checkTabLayout() {

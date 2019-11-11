@@ -7,7 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.ui.utils.FakeData;
 import com.dargoz.jetpack.utils.Constants;
 
@@ -21,7 +21,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class DetailFilmActivityTest {
-    private MovieEntity movieEntity = FakeData.getMovieEntity();
+    private final MovieEntity movieEntity = FakeData.getMovieEntity();
 
     @Rule
     public ActivityTestRule<DetailFilmActivity> activityTestRule = new ActivityTestRule<DetailFilmActivity>(DetailFilmActivity.class){

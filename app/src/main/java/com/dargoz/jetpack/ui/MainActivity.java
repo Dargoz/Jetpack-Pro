@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.ui.movie.MovieFragment;
 import com.dargoz.jetpack.ui.tvshow.TvShowFragment;
+import com.dargoz.jetpack.utils.Utils;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Utils.init(getApplication());
         TabLayout tabLayout = findViewById(R.id.main_tab_layout);
         final ViewPager viewPager = findViewById(R.id.main_view_pager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout);

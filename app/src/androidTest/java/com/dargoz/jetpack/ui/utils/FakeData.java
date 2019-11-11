@@ -1,7 +1,7 @@
 package com.dargoz.jetpack.ui.utils;
 
 import com.dargoz.jetpack.R;
-import com.dargoz.jetpack.data.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 
 public class FakeData {
 

@@ -34,6 +34,7 @@ public class SingleFragmentActivity  extends AppCompatActivity {
                 .commit();
     }
 
+    @SuppressWarnings("unused")
     public void replaceFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
