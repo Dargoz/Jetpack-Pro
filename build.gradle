@@ -2,10 +2,8 @@
 
 buildscript {
     repositories {
-        /*google()
-        jcenter()*/
-        maven { url 'http://bcaartifactory:8080/artifactory/list/jcenter.bintray.com/' }
-        maven { url 'http://bcaartifactory:8080/artifactory/list/maven.google.com/' }
+        google()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
@@ -17,10 +15,8 @@ buildscript {
 
 allprojects {
     repositories {
-        /*google()
-        jcenter()*/
-        maven { url 'http://bcaartifactory:8080/artifactory/list/jcenter.bintray.com/' }
-        maven { url 'http://bcaartifactory:8080/artifactory/list/maven.google.com/' }
+        google()
+        jcenter()
     }
 }
 
