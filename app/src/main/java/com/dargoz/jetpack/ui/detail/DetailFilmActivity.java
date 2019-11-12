@@ -24,7 +24,7 @@ import static com.dargoz.jetpack.utils.Constants.Category.URL_MOVIES;
 import static com.dargoz.jetpack.utils.Constants.Category.URL_TV;
 import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 
-public class DetailFilmActivity extends AppCompatActivity {
+public class DetailFilmActivity extends AppCompatActivity implements View.OnClickListener {
     private DetailFimViewModel viewModel;
     private TextView filmTitleText;
     private ImageView filmPosterImage;
@@ -34,6 +34,7 @@ public class DetailFilmActivity extends AppCompatActivity {
     private TextView runtimeText;
     private LinearLayout genreGridView;
     private TextView statusText;
+    private ImageView bookmarkIcon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +80,8 @@ public class DetailFilmActivity extends AppCompatActivity {
         runtimeText = findViewById(R.id.runtime_text_view);
         genreGridView = findViewById(R.id.genre_container_view);
         statusText = findViewById(R.id.status_text_view);
+        bookmarkIcon = findViewById(R.id.bookmark_icon);
+        bookmarkIcon.setOnClickListener(this);
     }
 
     private void initData(){
@@ -115,6 +118,13 @@ public class DetailFilmActivity extends AppCompatActivity {
             if (idx % 3 == 0) {
                 genreGridView.addView(row);
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.bookmark_icon) {
+
         }
     }
 }

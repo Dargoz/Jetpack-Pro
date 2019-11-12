@@ -27,7 +27,7 @@ import java.util.List;
 
 import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 
-public class TvShowRecyclerViewAdapter extends RecyclerView.Adapter<TvShowRecyclerViewAdapter.ViewHolder> {
+public class TvShowRecyclerViewAdapter extends RecyclerView.Adapter<TvShowRecyclerViewAdapter.TvShowViewHolder> {
     private Context context;
     private List<TvShowEntity> tvShowEntities;
 
@@ -36,16 +36,16 @@ public class TvShowRecyclerViewAdapter extends RecyclerView.Adapter<TvShowRecycl
     }
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TvShowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemRow = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.movie_item_list, parent, false);
         context = itemRow.getContext();
-        return new ViewHolder(itemRow);
+        return new TvShowViewHolder(itemRow);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TvShowViewHolder holder, int position) {
         holder.bindViewData(tvShowEntities.get(position));
     }
 
@@ -54,7 +54,7 @@ public class TvShowRecyclerViewAdapter extends RecyclerView.Adapter<TvShowRecycl
         return tvShowEntities.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class TvShowViewHolder extends RecyclerView.ViewHolder{
         private final ShimmerFrameLayout shimmerFrameLayout;
         private final FrameLayout tvShowContainer;
         private final ImageView tvShowPoster;
@@ -63,7 +63,7 @@ public class TvShowRecyclerViewAdapter extends RecyclerView.Adapter<TvShowRecycl
         private final TextView tvShowScore;
 
 
-        ViewHolder(@NonNull View itemView) {
+        TvShowViewHolder(@NonNull View itemView) {
             super(itemView);
             shimmerFrameLayout = itemView.findViewById(R.id.movie_item_shimmer_layout);
             tvShowContainer = itemView.findViewById(R.id.movie_image_container);

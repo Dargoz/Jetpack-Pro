@@ -116,8 +116,20 @@ public class MovieEntity implements Parcelable {
         return status;
     }
 
+    public int getImage() {
+        return image;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public String getImagePath() {
         return imagePath;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setGenre(ArrayList<GenreEntity> genreEntityArrayList) {
