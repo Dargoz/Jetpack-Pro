@@ -2,6 +2,7 @@ package com.dargoz.jetpack.data.source.local.room;
 
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,7 +18,7 @@ public interface FilmDao {
 
     @WorkerThread
     @Query("SELECT * FROM movie")
-    LiveData<List<MovieEntity>> getMovies();
+    DataSource.Factory<Integer,MovieEntity> getMovies();
 
     @WorkerThread
     @Query("SELECT * FROM tvShow")

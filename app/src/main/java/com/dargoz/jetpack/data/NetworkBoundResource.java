@@ -1,4 +1,4 @@
-package com.dargoz.jetpack.data.source;
+package com.dargoz.jetpack.data;
 
 import androidx.lifecycle.MediatorLiveData;
 
