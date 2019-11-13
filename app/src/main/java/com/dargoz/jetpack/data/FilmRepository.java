@@ -198,4 +198,8 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
     public LiveData<PagedList<MovieEntity>> getFavoriteMovies() {
         return new LivePagedListBuilder<>(localRepository.getAllMovies(),20).build() ;
     }
+
+    public void insertMovie(MovieEntity movieEntity) {
+        localRepository.insertMovie(movieEntity);
+    }
 }

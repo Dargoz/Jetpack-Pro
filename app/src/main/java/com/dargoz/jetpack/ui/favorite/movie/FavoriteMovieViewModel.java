@@ -1,4 +1,4 @@
-package com.dargoz.jetpack.ui.favorite;
+package com.dargoz.jetpack.ui.favorite.movie;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

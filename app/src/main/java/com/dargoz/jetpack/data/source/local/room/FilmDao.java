@@ -24,6 +24,7 @@ public interface FilmDao {
     @Query("SELECT * FROM tvShow")
     LiveData<List<MovieEntity>> getTvShows();
 
+    @WorkerThread
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(MovieEntity movies);
 

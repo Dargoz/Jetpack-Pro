@@ -1,4 +1,4 @@
-package com.dargoz.jetpack.ui.favorite;
+package com.dargoz.jetpack.ui.favorite.movie;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -26,13 +26,11 @@ import com.dargoz.jetpack.utils.Constants;
 import com.dargoz.jetpack.utils.Utils;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
-import java.util.List;
 
 import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 
 public class MoviePagedListAdapter extends PagedListAdapter<MovieEntity, MoviePagedListAdapter.MovieViewHolder> {
     private Context context;
-    private List<MovieEntity> movieEntities;
 
     private static DiffUtil.ItemCallback<MovieEntity> diffCallback = new DiffUtil.ItemCallback<MovieEntity>() {
         @Override
@@ -47,14 +45,10 @@ public class MoviePagedListAdapter extends PagedListAdapter<MovieEntity, MoviePa
         }
     };
 
-    protected MoviePagedListAdapter() {
+    MoviePagedListAdapter() {
         super(diffCallback);
     }
 
-
-    void setMovieEntities(List<MovieEntity> movieEntities){
-        this.movieEntities = movieEntities;
-    }
 
     @NonNull
     @Override
@@ -69,13 +63,12 @@ public class MoviePagedListAdapter extends PagedListAdapter<MovieEntity, MoviePa
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.bindViewData(movieEntities.get(position));
+        MovieEntity movieEntity = getItem(position);
+        if(movieEntity != null) {
+            holder.bindViewData(movieEntity);
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return movieEntities.size();
-    }
 
     class MovieViewHolder extends RecyclerView.ViewHolder{
         private final ShimmerFrameLayout shimmerFrameLayout;

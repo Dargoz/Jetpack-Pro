@@ -34,7 +34,8 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
     private TextView runtimeText;
     private LinearLayout genreGridView;
     private TextView statusText;
-    private ImageView bookmarkIcon;
+
+    MovieEntity movieEntity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,9 +58,7 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
         return ViewModelProviders.of(this,factory).get(DetailFimViewModel.class);
     }
 
-    private final Observer<Object> getDetails = new Observer<Object>() {
-        @Override
-        public void onChanged(Object filmData) {
+    private final Observer<Object> getDetails = filmData -> {
             if (filmData instanceof TvShowEntity) {
                 episodeText.setText(String.format("Tv Shows | %s Episode",
                         ((TvShowEntity) filmData).getTotalEpisode()));
@@ -67,12 +66,11 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
             statusText.setText(((MovieEntity) filmData).getStatus());
             runtimeText.setText(((MovieEntity) filmData).getDuration());
             showGenreList(((MovieEntity) filmData).getGenre().split(","));
-
-        }
     };
 
     private void setupView(){
         filmTitleText = findViewById(R.id.detail_title_text_view);
+        ImageView bookmarkIcon = findViewById(R.id.add_to_favorite_button);
         filmPosterImage = findViewById(R.id.movie_detail_image);
         episodeText = findViewById(R.id.episode_text_view);
         filmDescText = findViewById(R.id.desc_detail_text_view);
@@ -80,12 +78,10 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
         runtimeText = findViewById(R.id.runtime_text_view);
         genreGridView = findViewById(R.id.genre_container_view);
         statusText = findViewById(R.id.status_text_view);
-        bookmarkIcon = findViewById(R.id.bookmark_icon);
         bookmarkIcon.setOnClickListener(this);
     }
 
     private void initData(){
-        MovieEntity movieEntity;
         if(DetailFimViewModel.isMovieEntity()){
             movieEntity = viewModel.getMovieEntity();
             episodeText.setVisibility(View.INVISIBLE);
@@ -123,8 +119,8 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.bookmark_icon) {
-
+        if(view.getId() == R.id.add_to_favorite_button) {
+            viewModel.addToFavoriteMovieList(movieEntity);
         }
     }
 }

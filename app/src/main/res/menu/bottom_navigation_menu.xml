@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_nav_home"
         android:title="@string/home_tab_text"
         android:icon="@drawable/home_icon"
         />
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/action_nav_favorite"
         android:title="@string/favorite_tab_text"
         android:icon="@drawable/collection_bookmark_icon"/>
 </menu>

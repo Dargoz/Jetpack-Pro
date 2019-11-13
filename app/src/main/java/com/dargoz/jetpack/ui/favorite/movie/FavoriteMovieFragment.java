@@ -1,11 +1,13 @@
-package com.dargoz.jetpack.ui.favorite;
+package com.dargoz.jetpack.ui.favorite.movie;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +24,7 @@ import com.dargoz.jetpack.viewmodel.ViewModelFactory;
 
 public class FavoriteMovieFragment extends Fragment {
     private RecyclerView movieRecyclerView;
-    private Button reloadButton;
+    private TextView errorMessage;
     private ProgressBar progressBar;
 
     @Nullable
@@ -34,8 +36,9 @@ public class FavoriteMovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        reloadButton = view.findViewById(R.id.movie_reload_button);
+        errorMessage = view.findViewById(R.id.error_message_movie_fragment);
         progressBar = view.findViewById(R.id.movie_progress_bar);
+        progressBar.setVisibility(View.GONE);
         movieRecyclerView = view.findViewById(R.id.movie_recycler_view);
         movieRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
     }
@@ -48,7 +51,9 @@ public class FavoriteMovieFragment extends Fragment {
             MoviePagedListAdapter adapter = new MoviePagedListAdapter();
 
             viewModel.getMoviePaged().observe(this, movieEntities -> {
+                Log.d("DRG","movie entity observe");
                 if(movieEntities != null) {
+                    errorMessage.setVisibility(movieEntities.isEmpty() ? View.VISIBLE : View.GONE);
                     adapter.submitList(movieEntities);
                 }
             });
