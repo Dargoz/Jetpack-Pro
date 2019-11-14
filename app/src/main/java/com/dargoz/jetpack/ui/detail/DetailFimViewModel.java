@@ -47,6 +47,14 @@ public class DetailFimViewModel extends ViewModel implements FilmRepository.Deta
         filmRepository.insertMovie(movieEntity);
     }
 
+    boolean isMovieInFavoriteList(MovieEntity movieEntity) {
+        return filmRepository.findMovieById(movieEntity.getId()) != null;
+    }
+
+    void deleteMovieFromFavoriteList(MovieEntity movieEntity) {
+        filmRepository.deleteMovieFromFavorite(movieEntity);
+    }
+
     static boolean isMovieEntity() {
         return isMovieEntity;
     }

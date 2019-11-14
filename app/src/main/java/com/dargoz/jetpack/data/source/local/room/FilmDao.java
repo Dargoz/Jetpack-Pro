@@ -28,6 +28,10 @@ public interface FilmDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(MovieEntity movies);
 
+    @WorkerThread
+    @Query("SELECT * FROM movie WHERE id = :id")
+    MovieEntity findMovieById(int id);
+
     @Delete
     void deleteMovie(MovieEntity movieEntity);
 }

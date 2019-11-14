@@ -49,10 +49,11 @@ public class FavoriteMovieFragment extends Fragment {
         if(getActivity() != null){
             FavoriteMovieViewModel viewModel = obtainViewModel(getActivity());
             MoviePagedListAdapter adapter = new MoviePagedListAdapter();
-
+            movieRecyclerView.setAdapter(adapter);
             viewModel.getMoviePaged().observe(this, movieEntities -> {
                 Log.d("DRG","movie entity observe");
                 if(movieEntities != null) {
+                    Log.d("DRG","movie entity size : " + movieEntities.size());
                     errorMessage.setVisibility(movieEntities.isEmpty() ? View.VISIBLE : View.GONE);
                     adapter.submitList(movieEntities);
                 }

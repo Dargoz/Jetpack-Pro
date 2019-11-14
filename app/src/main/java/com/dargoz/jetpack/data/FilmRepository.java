@@ -202,4 +202,12 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
     public void insertMovie(MovieEntity movieEntity) {
         localRepository.insertMovie(movieEntity);
     }
+
+    public MovieEntity findMovieById(int id) {
+        return localRepository.findMovieById(id);
+    }
+
+    public void deleteMovieFromFavorite(MovieEntity movieEntity) {
+        localRepository.deleteMovie(movieEntity);
+    }
 }
