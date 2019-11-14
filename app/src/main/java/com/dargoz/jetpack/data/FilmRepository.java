@@ -210,4 +210,20 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
     public void deleteMovieFromFavorite(MovieEntity movieEntity) {
         localRepository.deleteMovie(movieEntity);
     }
+
+    public LiveData<PagedList<TvShowEntity>> getFavoriteTvShows() {
+        return new LivePagedListBuilder<>(localRepository.getAllTvShows(),20).build() ;
+    }
+
+    public void insertTvShow(TvShowEntity tvShowEntitiy) {
+        localRepository.insertTvShow(tvShowEntitiy);
+    }
+
+    public TvShowEntity findTvShowById(int id) {
+        return localRepository.findTvShowById(id);
+    }
+
+    public void deleteTvShowFromFavorite(TvShowEntity tvShowEntitiy) {
+        localRepository.deleteTvShow(tvShowEntitiy);
+    }
 }

@@ -10,6 +10,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface FilmDao {
 
     @WorkerThread
     @Query("SELECT * FROM tvShow")
-    LiveData<List<MovieEntity>> getTvShows();
+    DataSource.Factory<Integer,TvShowEntity> getTvShows();
 
     @WorkerThread
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -34,4 +35,14 @@ public interface FilmDao {
 
     @Delete
     void deleteMovie(MovieEntity movieEntity);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTv(TvShowEntity tvShowEntity);
+
+    @WorkerThread
+    @Query("SELECT * FROM tvShow WHERE id = :id")
+    TvShowEntity findTvShowById(int id);
+
+    @Delete
+    void deleteTvShow(TvShowEntity tvShowEntity);
 }

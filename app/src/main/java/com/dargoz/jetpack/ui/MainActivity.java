@@ -5,6 +5,7 @@ import android.view.MenuItem;
 
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.ui.favorite.movie.FavoriteMovieFragment;
+import com.dargoz.jetpack.ui.favorite.tvshow.FavoriteTvShowFragment;
 import com.dargoz.jetpack.ui.movie.MovieFragment;
 import com.dargoz.jetpack.ui.tvshow.TvShowFragment;
 import com.dargoz.jetpack.utils.Utils;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             ViewPagerAdapter favoriteAdapter =
                     new ViewPagerAdapter(getSupportFragmentManager(), tabLayout);
             favoriteAdapter.addFragment(new FavoriteMovieFragment(), getString(R.string.movie_tab_title));
-//                favoriteAdapter.addFragment(new TvShowFragment(), getString(R.string.tv_show_tab_title));
+                favoriteAdapter.addFragment(new FavoriteTvShowFragment(), getString(R.string.tv_show_tab_title));
             viewPager.setAdapter(favoriteAdapter);
         }else {
             menuItem.setIcon(R.drawable.baseline_home_white_24);

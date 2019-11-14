@@ -34,5 +34,6 @@
     <string name="home_tab_text">Home</string>
     <string name="bookmark_button_text_desc">bookmark button</string>
     <string name="favorite_title_text">Favorite List</string>
-    <string name="text_error_message_movie_fragment">Anda tidak memiliki movie favorit</string>
+    <string name="text_error_message_movie_fragment">You don\'t have any favorite movie list</string>
+    <string name="text_error_message_tv_show_fragment">You don\'t have any favorite tv show list</string>
 </resources>

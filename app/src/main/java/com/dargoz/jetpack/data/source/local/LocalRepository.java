@@ -4,6 +4,7 @@ package com.dargoz.jetpack.data.source.local;
 import androidx.paging.DataSource;
 
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.data.source.local.room.FilmDao;
 
 import java.util.concurrent.ExecutorService;
@@ -44,4 +45,19 @@ public class LocalRepository {
         executorService.execute(() -> filmDao.deleteMovie(movieEntity));
     }
 
+    public DataSource.Factory<Integer, TvShowEntity> getAllTvShows() {
+        return filmDao.getTvShows();
+    }
+
+    public void insertTvShow(TvShowEntity tvShowEntity) {
+        executorService.execute(() -> filmDao.insertTv(tvShowEntity));
+    }
+
+    public TvShowEntity findTvShowById(int id) {
+        return filmDao.findTvShowById(id);
+    }
+
+    public void deleteTvShow(TvShowEntity tvShowEntitiy) {
+        executorService.execute(() -> filmDao.deleteTvShow(tvShowEntitiy));
+    }
 }

@@ -38,7 +38,6 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
     private TextView statusText;
     private ImageView bookmarkIcon;
     private HandlerThread handlerThread;
-    private Handler handler;
     boolean isBookmarked = false;
 
     MovieEntity movieEntity;
@@ -110,15 +109,18 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
     private void initializeBookmarkIcon() {
         handlerThread = new HandlerThread(this.toString());
         handlerThread.start();
-        handler = new Handler(handlerThread.getLooper());
+        Handler handler = new Handler(handlerThread.getLooper());
         handler.post(() -> {
-            if (viewModel.isMovieInFavoriteList(movieEntity)) {
-                bookmarkIcon.setImageResource(R.drawable.baseline_bookmark_white_36);
-                isBookmarked = true;
+            if(DetailFimViewModel.isMovieEntity()) {
+                isBookmarked = viewModel.isMovieInFavoriteList(movieEntity);
             } else {
-                bookmarkIcon.setImageResource(R.drawable.baseline_bookmark_border_white_36);
-                isBookmarked = false;
+                isBookmarked = viewModel.isTvShowInFavoriteList(viewModel.getTvShowEntity());
             }
+            bookmarkIcon.setImageResource( isBookmarked ?
+                    R.drawable.baseline_bookmark_white_36 :
+                    R.drawable.baseline_bookmark_border_white_36
+            );
+
         });
     }
 
@@ -147,10 +149,18 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
 
         if (view.getId() == R.id.add_to_favorite_button) {
             if (!isBookmarked) {
-                viewModel.addToFavoriteMovieList(movieEntity);
+                if (DetailFimViewModel.isMovieEntity()) {
+                    viewModel.addToFavoriteMovieList(movieEntity);
+                } else {
+                    viewModel.addToFavoriteTvShowList(viewModel.getTvShowEntity());
+                }
                 bookmarkIcon.setImageResource(R.drawable.baseline_bookmark_white_36);
             } else {
-                viewModel.deleteMovieFromFavoriteList(movieEntity);
+                if (DetailFimViewModel.isMovieEntity()) {
+                    viewModel.deleteMovieFromFavoriteList(movieEntity);
+                }else {
+                    viewModel.deleteTvShowFromFavoriteList(viewModel.getTvShowEntity());
+                }
                 bookmarkIcon.setImageResource(R.drawable.baseline_bookmark_border_white_36);
             }
 
