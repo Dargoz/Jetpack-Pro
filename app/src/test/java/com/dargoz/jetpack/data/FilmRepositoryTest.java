@@ -48,6 +48,7 @@ public class FilmRepositoryTest {
     private final ArrayList<TvShowResponse> tvShowResponses = DummyData.generateTvShowResponse();
     private List<TvShowEntity> tvShowEntities = DummyData.generateDummyTvShowEntities();
     private final MovieEntity movieEntity = mock(MovieEntity.class);
+    private final TvShowEntity tvShowEntity = mock(TvShowEntity.class);
     private final Bitmap imageBitmap = mock(Bitmap.class);
     private final JSONObject response = mock(JSONObject.class);
 
@@ -123,7 +124,7 @@ public class FilmRepositoryTest {
 
     @Test
     public void getFavoriteMovies() {
-        androidx.paging.DataSource.Factory<Integer, MovieEntity> dataSourceFactory = mock(DataSource.Factory.class);
+        DataSource.Factory<Integer, MovieEntity> dataSourceFactory = mock(DataSource.Factory.class);
 
         when(local.getAllMovies()).thenReturn(dataSourceFactory);
         filmRepository.getFavoriteMovies();
@@ -134,17 +135,15 @@ public class FilmRepositoryTest {
         assertEquals(movieEntities.size(), result.size());
     }
 
-    @Test
-    public void insertMovie() {
-    }
 
     @Test
     public void findMovieById() {
+        when(local.findMovieById(movieEntity.getId())).thenReturn(movieEntity);
+        MovieEntity result = local.findMovieById(movieEntity.getId());
+        verify(local).findMovieById(movieEntity.getId());
+        assertEquals(movieEntity, result);
     }
 
-    @Test
-    public void deleteMovieFromFavorite() {
-    }
 
     @Test
     public void getFavoriteTvShows() {
@@ -160,14 +159,11 @@ public class FilmRepositoryTest {
     }
 
     @Test
-    public void insertTvShow() {
-    }
-
-    @Test
     public void findTvShowById() {
+        when(local.findMovieById(tvShowEntity.getId())).thenReturn(tvShowEntity);
+        MovieEntity result = local.findMovieById(tvShowEntity.getId());
+        verify(local).findMovieById(tvShowEntity.getId());
+        assertEquals(tvShowEntity, result);
     }
 
-    @Test
-    public void deleteTvShowFromFavorite() {
-    }
 }
