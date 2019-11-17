@@ -39,14 +39,14 @@ public class FilmRepositoryTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    private LocalRepository local = mock(LocalRepository.class);
+    private final LocalRepository local = mock(LocalRepository.class);
     private final RemoteRepository remote = mock(RemoteRepository.class);
     private final FakeFilmRepository filmRepository = new FakeFilmRepository(local, remote);
 
     private final ArrayList<MovieResponse> movieResponses = DummyData.generateMovieResponse();
-    private List<MovieEntity> movieEntities = DummyData.generateDummyMovieEntities();
+    private final List<MovieEntity> movieEntities = DummyData.generateDummyMovieEntities();
     private final ArrayList<TvShowResponse> tvShowResponses = DummyData.generateTvShowResponse();
-    private List<TvShowEntity> tvShowEntities = DummyData.generateDummyTvShowEntities();
+    private final List<TvShowEntity> tvShowEntities = DummyData.generateDummyTvShowEntities();
     private final MovieEntity movieEntity = mock(MovieEntity.class);
     private final TvShowEntity tvShowEntity = mock(TvShowEntity.class);
     private final Bitmap imageBitmap = mock(Bitmap.class);
@@ -124,6 +124,7 @@ public class FilmRepositoryTest {
 
     @Test
     public void getFavoriteMovies() {
+        @SuppressWarnings("unchecked")
         DataSource.Factory<Integer, MovieEntity> dataSourceFactory = mock(DataSource.Factory.class);
 
         when(local.getAllMovies()).thenReturn(dataSourceFactory);
@@ -147,7 +148,8 @@ public class FilmRepositoryTest {
 
     @Test
     public void getFavoriteTvShows() {
-        androidx.paging.DataSource.Factory<Integer, TvShowEntity> dataSourceFactory = mock(DataSource.Factory.class);
+        @SuppressWarnings("unchecked")
+        DataSource.Factory<Integer, TvShowEntity> dataSourceFactory = mock(DataSource.Factory.class);
 
         when(local.getAllTvShows()).thenReturn(dataSourceFactory);
         local.getAllTvShows();

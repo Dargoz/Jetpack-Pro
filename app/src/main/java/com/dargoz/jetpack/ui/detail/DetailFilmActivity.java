@@ -38,9 +38,9 @@ public class DetailFilmActivity extends AppCompatActivity implements View.OnClic
     private TextView statusText;
     private ImageView bookmarkIcon;
     private HandlerThread handlerThread;
-    boolean isBookmarked = false;
+    private boolean isBookmarked = false;
 
-    MovieEntity movieEntity;
+    private MovieEntity movieEntity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

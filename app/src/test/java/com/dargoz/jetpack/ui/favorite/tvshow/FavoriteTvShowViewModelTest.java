@@ -13,7 +13,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,7 +21,7 @@ public class FavoriteTvShowViewModelTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    private FilmRepository filmRepository = Mockito.mock(FilmRepository.class);
+    private final FilmRepository filmRepository = Mockito.mock(FilmRepository.class);
     private FavoriteTvShowViewModel viewModel;
 
     @Before
@@ -30,6 +29,7 @@ public class FavoriteTvShowViewModelTest {
         viewModel = new FavoriteTvShowViewModel(filmRepository);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getTvShowPaged() {
         MutableLiveData<PagedList<TvShowEntity>> dummyFavoriteTvShow = new MutableLiveData<>();

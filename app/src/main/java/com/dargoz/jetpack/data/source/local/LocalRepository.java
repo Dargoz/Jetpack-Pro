@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 public class LocalRepository {
     private static LocalRepository INSTANCE;
     private final FilmDao filmDao;
-    private ExecutorService executorService;
+    private final ExecutorService executorService;
 
     private LocalRepository(FilmDao filmDao) {
         executorService = Executors.newSingleThreadExecutor();
@@ -57,7 +57,7 @@ public class LocalRepository {
         return filmDao.findTvShowById(id);
     }
 
-    public void deleteTvShow(TvShowEntity tvShowEntitiy) {
-        executorService.execute(() -> filmDao.deleteTvShow(tvShowEntitiy));
+    public void deleteTvShow(TvShowEntity tvShowEntity) {
+        executorService.execute(() -> filmDao.deleteTvShow(tvShowEntity));
     }
 }

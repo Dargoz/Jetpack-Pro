@@ -31,7 +31,7 @@ import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 public class TvShowPagedListAdapter extends PagedListAdapter<TvShowEntity, TvShowPagedListAdapter.TvShowViewHolder> {
     private Context context;
 
-    private static DiffUtil.ItemCallback<TvShowEntity> diffCallback = new DiffUtil.ItemCallback<TvShowEntity>() {
+    private static final DiffUtil.ItemCallback<TvShowEntity> diffCallback = new DiffUtil.ItemCallback<TvShowEntity>() {
         @Override
         public boolean areItemsTheSame(@NonNull TvShowEntity oldItem, @NonNull TvShowEntity newItem) {
             return oldItem.getId() == newItem.getId();

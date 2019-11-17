@@ -3,6 +3,9 @@ package com.dargoz.jetpack.ui;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.dargoz.jetpack.R;
 import com.dargoz.jetpack.ui.favorite.movie.FavoriteMovieFragment;
 import com.dargoz.jetpack.ui.favorite.tvshow.FavoriteTvShowFragment;
@@ -12,14 +15,9 @@ import com.dargoz.jetpack.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
-    ViewPager viewPager;
-    TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new TvShowFragment(), getString(R.string.tv_show_tab_title));
         viewPager.setAdapter(adapter);
 
-        bottomNavigationView = findViewById(R.id.main_bottom_navigation_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navigation_view);
         bottomNavigationView.setItemIconTintList(null);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            menuItem.setChecked(true);
             onBottomNavItemSelected(menuItem);
             return false;
         });
@@ -60,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void onBottomNavItemSelected(MenuItem menuItem) {
         if(menuItem.getItemId() == R.id.action_nav_favorite) {
-            menuItem.setIcon(R.drawable.baseline_collections_bookmark_white_24);
-            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.baseline_home_black_24);
-//            bottomNavigationView.setItemTextColor();
             setTitle(getResources().getString(R.string.favorite_title_text));
             ViewPagerAdapter favoriteAdapter =
                     new ViewPagerAdapter(getSupportFragmentManager(), tabLayout);
@@ -70,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 favoriteAdapter.addFragment(new FavoriteTvShowFragment(), getString(R.string.tv_show_tab_title));
             viewPager.setAdapter(favoriteAdapter);
         }else {
-            menuItem.setIcon(R.drawable.baseline_home_white_24);
-            bottomNavigationView.getMenu().getItem(1).setIcon(R.drawable.baseline_collections_bookmark_black_24);
             setTitle(getResources().getString(R.string.app_name));
             ViewPagerAdapter homeAdapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout);
             homeAdapter.addFragment(new MovieFragment(), getString(R.string.movie_tab_title));

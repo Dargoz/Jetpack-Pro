@@ -29,7 +29,7 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
         RemoteDBHelper.DetailsListener{
     private volatile static FilmRepository INSTANCE = null;
 
-    private LocalRepository localRepository;
+    private final LocalRepository localRepository;
     private RemoteRepository remoteRepository;
     private RepositoryListener repositoryListener;
     private TvRepositoryListener tvRepositoryListener;
@@ -215,15 +215,15 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
         return new LivePagedListBuilder<>(localRepository.getAllTvShows(),20).build() ;
     }
 
-    public void insertTvShow(TvShowEntity tvShowEntitiy) {
-        localRepository.insertTvShow(tvShowEntitiy);
+    public void insertTvShow(TvShowEntity tvShowEntity) {
+        localRepository.insertTvShow(tvShowEntity);
     }
 
     public TvShowEntity findTvShowById(int id) {
         return localRepository.findTvShowById(id);
     }
 
-    public void deleteTvShowFromFavorite(TvShowEntity tvShowEntitiy) {
-        localRepository.deleteTvShow(tvShowEntitiy);
+    public void deleteTvShowFromFavorite(TvShowEntity tvShowEntity) {
+        localRepository.deleteTvShow(tvShowEntity);
     }
 }

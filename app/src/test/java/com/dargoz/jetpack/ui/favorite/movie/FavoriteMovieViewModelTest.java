@@ -22,7 +22,7 @@ public class FavoriteMovieViewModelTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    private FilmRepository filmRepository = Mockito.mock(FilmRepository.class);
+    private final FilmRepository filmRepository = Mockito.mock(FilmRepository.class);
     private FavoriteMovieViewModel viewModel;
 
     @Before
@@ -30,6 +30,7 @@ public class FavoriteMovieViewModelTest {
         viewModel = new FavoriteMovieViewModel(filmRepository);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getMoviePaged() {
         MutableLiveData<PagedList<MovieEntity>> dummyFavoriteMovie = new MutableLiveData<>();

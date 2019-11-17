@@ -1,7 +1,6 @@
 package com.dargoz.jetpack.data.source.local.room;
 
 import androidx.annotation.WorkerThread;
-import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -11,8 +10,6 @@ import androidx.room.Query;
 
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
-
-import java.util.List;
 
 @Dao
 public interface FilmDao {

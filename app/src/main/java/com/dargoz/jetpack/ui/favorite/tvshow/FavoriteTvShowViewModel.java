@@ -9,7 +9,7 @@ import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 
 
 public class FavoriteTvShowViewModel extends ViewModel {
-    private FilmRepository filmRepository;
+    private final FilmRepository filmRepository;
 
     public FavoriteTvShowViewModel(FilmRepository filmRepository) {
         this.filmRepository = filmRepository;

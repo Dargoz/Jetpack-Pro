@@ -27,7 +27,7 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
         RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener,
         RemoteDBHelper.DetailsListener{
 
-    private LocalRepository localRepository;
+    private final LocalRepository localRepository;
     private final RemoteRepository remoteRepository;
     private FilmRepository.RepositoryListener repositoryListener;
     private FilmRepository.TvRepositoryListener tvRepositoryListener;
@@ -171,35 +171,9 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
         }
     }
 
-    public LiveData<PagedList<MovieEntity>> getFavoriteMovies() {
+    @SuppressWarnings("UnusedReturnValue")
+    LiveData<PagedList<MovieEntity>> getFavoriteMovies() {
         return new LivePagedListBuilder<>(localRepository.getAllMovies(),20).build() ;
     }
 
-    public void insertMovie(MovieEntity movieEntity) {
-        localRepository.insertMovie(movieEntity);
-    }
-
-    public MovieEntity findMovieById(int id) {
-        return localRepository.findMovieById(id);
-    }
-
-    public void deleteMovieFromFavorite(MovieEntity movieEntity) {
-        localRepository.deleteMovie(movieEntity);
-    }
-
-    public LiveData<PagedList<TvShowEntity>> getFavoriteTvShows() {
-        return new LivePagedListBuilder<>(localRepository.getAllTvShows(),20).build() ;
-    }
-
-    public void insertTvShow(TvShowEntity tvShowEntitiy) {
-        localRepository.insertTvShow(tvShowEntitiy);
-    }
-
-    public TvShowEntity findTvShowById(int id) {
-        return localRepository.findTvShowById(id);
-    }
-
-    public void deleteTvShowFromFavorite(TvShowEntity tvShowEntitiy) {
-        localRepository.deleteTvShow(tvShowEntitiy);
-    }
 }

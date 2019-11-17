@@ -32,7 +32,7 @@ import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 public class MoviePagedListAdapter extends PagedListAdapter<MovieEntity, MoviePagedListAdapter.MovieViewHolder> {
     private Context context;
 
-    private static DiffUtil.ItemCallback<MovieEntity> diffCallback = new DiffUtil.ItemCallback<MovieEntity>() {
+    private static final DiffUtil.ItemCallback<MovieEntity> diffCallback = new DiffUtil.ItemCallback<MovieEntity>() {
         @Override
         public boolean areItemsTheSame(@NonNull MovieEntity oldItem, @NonNull MovieEntity newItem) {
             return oldItem.getId() == newItem.getId();
