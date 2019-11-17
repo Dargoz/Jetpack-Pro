@@ -22,7 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListener,
         RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener,

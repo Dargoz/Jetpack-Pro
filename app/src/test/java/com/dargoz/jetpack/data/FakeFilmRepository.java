@@ -2,6 +2,11 @@ package com.dargoz.jetpack.data;
 
 import android.graphics.Bitmap;
 
+import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
+
+import com.dargoz.jetpack.data.source.local.LocalRepository;
 import com.dargoz.jetpack.data.source.local.entity.GenreEntity;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
@@ -22,6 +27,7 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
         RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener,
         RemoteDBHelper.DetailsListener{
 
+    private LocalRepository localRepository;
     private final RemoteRepository remoteRepository;
     private FilmRepository.RepositoryListener repositoryListener;
     private FilmRepository.TvRepositoryListener tvRepositoryListener;
@@ -31,7 +37,8 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
     private RemoteDBHelper.ImageResponseListener imageResponseListener;
     private RemoteDBHelper.DetailsListener detailsListener;
 
-    FakeFilmRepository(RemoteRepository remoteRepository) {
+    FakeFilmRepository(LocalRepository localRepository, RemoteRepository remoteRepository) {
+        this.localRepository = localRepository;
         this.remoteRepository = remoteRepository;
     }
 
@@ -162,5 +169,37 @@ public class FakeFilmRepository implements DataSource, RemoteDBHelper.ResponseLi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public LiveData<PagedList<MovieEntity>> getFavoriteMovies() {
+        return new LivePagedListBuilder<>(localRepository.getAllMovies(),20).build() ;
+    }
+
+    public void insertMovie(MovieEntity movieEntity) {
+        localRepository.insertMovie(movieEntity);
+    }
+
+    public MovieEntity findMovieById(int id) {
+        return localRepository.findMovieById(id);
+    }
+
+    public void deleteMovieFromFavorite(MovieEntity movieEntity) {
+        localRepository.deleteMovie(movieEntity);
+    }
+
+    public LiveData<PagedList<TvShowEntity>> getFavoriteTvShows() {
+        return new LivePagedListBuilder<>(localRepository.getAllTvShows(),20).build() ;
+    }
+
+    public void insertTvShow(TvShowEntity tvShowEntitiy) {
+        localRepository.insertTvShow(tvShowEntitiy);
+    }
+
+    public TvShowEntity findTvShowById(int id) {
+        return localRepository.findTvShowById(id);
+    }
+
+    public void deleteTvShowFromFavorite(TvShowEntity tvShowEntitiy) {
+        localRepository.deleteTvShow(tvShowEntitiy);
     }
 }
