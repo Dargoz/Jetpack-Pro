@@ -3,13 +3,18 @@ package com.dargoz.jetpack.data;
 import android.graphics.Bitmap;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.paging.DataSource;
+import androidx.paging.PagedList;
 
+import com.dargoz.jetpack.data.source.local.LocalRepository;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
+import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
 import com.dargoz.jetpack.data.source.remote.RemoteRepository;
 import com.dargoz.jetpack.data.source.remote.response.MovieResponse;
 import com.dargoz.jetpack.data.source.remote.response.TvShowResponse;
 import com.dargoz.jetpack.utils.Constants;
 import com.dargoz.jetpack.utils.DummyData;
+import com.dargoz.jetpack.utils.PagedListUtils;
 import com.dargoz.jetpack.utils.RemoteDBHelper;
 
 import org.json.JSONObject;
@@ -18,24 +23,32 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SuppressWarnings("SameReturnValue")
 public class FilmRepositoryTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
+    private final LocalRepository local = mock(LocalRepository.class);
     private final RemoteRepository remote = mock(RemoteRepository.class);
-    private final FakeFilmRepository filmRepository = new FakeFilmRepository(remote);
+    private final FakeFilmRepository filmRepository = new FakeFilmRepository(local, remote);
 
     private final ArrayList<MovieResponse> movieResponses = DummyData.generateMovieResponse();
+    private final List<MovieEntity> movieEntities = DummyData.generateDummyMovieEntities();
     private final ArrayList<TvShowResponse> tvShowResponses = DummyData.generateTvShowResponse();
+    private final List<TvShowEntity> tvShowEntities = DummyData.generateDummyTvShowEntities();
     private final MovieEntity movieEntity = mock(MovieEntity.class);
+    private final TvShowEntity tvShowEntity = mock(TvShowEntity.class);
     private final Bitmap imageBitmap = mock(Bitmap.class);
     private final JSONObject response = mock(JSONObject.class);
 
@@ -107,6 +120,52 @@ public class FilmRepositoryTest {
         }).when(remote).getDetails(movieEntity, Constants.Category.URL_MOVIES, detailsListener);
         verify(remote, times(1))
                 .getDetails(movieEntity, Constants.Category.URL_MOVIES, detailsListener);
+    }
+
+    @Test
+    public void getFavoriteMovies() {
+        @SuppressWarnings("unchecked")
+        DataSource.Factory<Integer, MovieEntity> dataSourceFactory = mock(DataSource.Factory.class);
+
+        when(local.getAllMovies()).thenReturn(dataSourceFactory);
+        filmRepository.getFavoriteMovies();
+        PagedList<MovieEntity>result = PagedListUtils.mockPagedList(movieEntities);
+
+        verify(local).getAllMovies();
+        assertNotNull(result);
+        assertEquals(movieEntities.size(), result.size());
+    }
+
+
+    @Test
+    public void findMovieById() {
+        when(local.findMovieById(movieEntity.getId())).thenReturn(movieEntity);
+        MovieEntity result = local.findMovieById(movieEntity.getId());
+        verify(local).findMovieById(movieEntity.getId());
+        assertEquals(movieEntity, result);
+    }
+
+
+    @Test
+    public void getFavoriteTvShows() {
+        @SuppressWarnings("unchecked")
+        DataSource.Factory<Integer, TvShowEntity> dataSourceFactory = mock(DataSource.Factory.class);
+
+        when(local.getAllTvShows()).thenReturn(dataSourceFactory);
+        local.getAllTvShows();
+        PagedList<TvShowEntity>result = PagedListUtils.mockPagedList(tvShowEntities);
+
+        verify(local).getAllTvShows();
+        assertNotNull(result);
+        assertEquals(tvShowEntities.size(), result.size());
+    }
+
+    @Test
+    public void findTvShowById() {
+        when(local.findMovieById(tvShowEntity.getId())).thenReturn(tvShowEntity);
+        MovieEntity result = local.findMovieById(tvShowEntity.getId());
+        verify(local).findMovieById(tvShowEntity.getId());
+        assertEquals(tvShowEntity, result);
     }
 
 }

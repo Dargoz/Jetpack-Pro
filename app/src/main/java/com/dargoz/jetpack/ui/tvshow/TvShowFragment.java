@@ -39,7 +39,8 @@ public class TvShowFragment extends Fragment implements TvShowViewModel.ErrorLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return root = inflater.inflate(R.layout.fragment_tv_show, container, false);
+        root = inflater.inflate(R.layout.fragment_tv_show, container, false);
+        return root;
     }
 
     @Override
@@ -75,14 +76,11 @@ public class TvShowFragment extends Fragment implements TvShowViewModel.ErrorLis
         return ViewModelProviders.of(activity, factory).get(TvShowViewModel.class);
     }
 
-    private final Observer<List<TvShowEntity>> getTvShows = new Observer<List<TvShowEntity>>() {
-        @Override
-        public void onChanged(List<TvShowEntity> tvShowEntities) {
-            progressBar.setVisibility(View.GONE);
-            TvShowRecyclerViewAdapter adapter = new TvShowRecyclerViewAdapter();
-            adapter.setTvShowEntities(tvShowEntities);
-            recyclerView.setAdapter(adapter);
-        }
+    private final Observer<List<TvShowEntity>> getTvShows = tvShowEntities ->  {
+        progressBar.setVisibility(View.GONE);
+        TvShowRecyclerViewAdapter adapter = new TvShowRecyclerViewAdapter();
+        adapter.setTvShowEntities(tvShowEntities);
+        recyclerView.setAdapter(adapter);
     };
 
     @Override

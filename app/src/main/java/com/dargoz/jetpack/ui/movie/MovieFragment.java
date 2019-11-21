@@ -39,7 +39,8 @@ public class MovieFragment extends Fragment implements MovieViewModel.ErrorListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return root = inflater.inflate(R.layout.fragment_movie, container, false);
+        root = inflater.inflate(R.layout.fragment_movie, container, false);
+        return root;
     }
 
     @Override
@@ -74,15 +75,11 @@ public class MovieFragment extends Fragment implements MovieViewModel.ErrorListe
         return ViewModelProviders.of(activity, factory).get(MovieViewModel.class);
     }
 
-    private final Observer<List<MovieEntity>> getMovies = new Observer<List<MovieEntity>>() {
-        @Override
-        public void onChanged(List<MovieEntity> movieEntities) {
-            progressBar.setVisibility(View.GONE);
-            MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
-            adapter.setMovieEntities(movieEntities);
-            movieRecyclerView.setAdapter(adapter);
-
-        }
+    private final Observer<List<MovieEntity>> getMovies = movieEntities ->  {
+        progressBar.setVisibility(View.GONE);
+        MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter();
+        adapter.setMovieEntities(movieEntities);
+        movieRecyclerView.setAdapter(adapter);
     };
 
     @Override

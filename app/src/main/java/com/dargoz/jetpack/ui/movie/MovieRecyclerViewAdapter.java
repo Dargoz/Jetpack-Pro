@@ -26,7 +26,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
-public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder> {
+public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
     private Context context;
     private List<MovieEntity> movieEntities;
 
@@ -35,16 +35,16 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     }
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemRow = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.movie_item_list, parent, false);
         context = itemRow.getContext();
-        return new ViewHolder(itemRow);
+        return new MovieViewHolder(itemRow);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         holder.bindViewData(movieEntities.get(position));
     }
 
@@ -53,7 +53,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         return movieEntities.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class MovieViewHolder extends RecyclerView.ViewHolder{
         private final ShimmerFrameLayout shimmerFrameLayout;
         private final FrameLayout movieContainer;
         private final ImageView moviePoster;
@@ -62,7 +62,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         private final TextView movieScore;
 
 
-        ViewHolder(@NonNull View itemView) {
+        MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             shimmerFrameLayout = itemView.findViewById(R.id.movie_item_shimmer_layout);
             movieContainer = itemView.findViewById(R.id.movie_image_container);

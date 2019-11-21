@@ -30,4 +30,10 @@
     <string name="bottom_margin_desc">bottom margin</string>
     <string name="reload_text">reload</string>
     <string name="placeholder_content_desc">placeholder</string>
+    <string name="favorite_tab_text">Favorite</string>
+    <string name="home_tab_text">Home</string>
+    <string name="bookmark_button_text_desc">bookmark button</string>
+    <string name="favorite_title_text">Favorite List</string>
+    <string name="text_error_message_movie_fragment">You don\'t have any favorite movie list</string>
+    <string name="text_error_message_tv_show_fragment">You don\'t have any favorite tv show list</string>
 </resources>

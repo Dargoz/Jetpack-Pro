@@ -4,22 +4,45 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+@Entity(tableName = "movie")
 public class MovieEntity implements Parcelable {
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private int id;
+
+    @ColumnInfo(name = "title")
     private String title;
+
+    @ColumnInfo(name = "description")
     private String description;
+
+    @ColumnInfo(name = "releaseDate")
     private String releaseDate;
+
+    @ColumnInfo(name = "genre")
     private String genre;
+
+    @ColumnInfo(name = "duration")
     private String duration;
+
+    @ColumnInfo(name = "score")
     private double score;
+
+    @ColumnInfo(name = "status")
     private String status;
+
     private int image;
+
+    @ColumnInfo(name = "imagePath")
     private String imagePath;
 
     public MovieEntity(String title, String description, String releaseDate, String genre,
@@ -93,8 +116,20 @@ public class MovieEntity implements Parcelable {
         return status;
     }
 
+    public int getImage() {
+        return image;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public String getImagePath() {
         return imagePath;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setGenre(ArrayList<GenreEntity> genreEntityArrayList) {

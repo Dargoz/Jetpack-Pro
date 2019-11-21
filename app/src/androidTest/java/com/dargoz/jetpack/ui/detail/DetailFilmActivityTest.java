@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -44,6 +45,11 @@ public class DetailFilmActivityTest {
         onView(withId(R.id.desc_detail_text_view)).check(matches(withText(movieEntity.getDescription())));
         onView(withId(R.id.score_text_view)).check(matches(isDisplayed()));
         onView(withId(R.id.score_text_view)).check(matches(withText(String.valueOf(movieEntity.getScore()))));
+    }
+
+    @Test
+    public void checkIfAddToFavoriteButtonClickable() {
+        onView(withId(R.id.add_to_favorite_button)).perform(click());
     }
 
 }

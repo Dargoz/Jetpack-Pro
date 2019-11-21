@@ -3,6 +3,8 @@ package com.dargoz.jetpack.ui.detail;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,7 +26,7 @@ import static com.dargoz.jetpack.utils.Constants.Category.URL_MOVIES;
 import static com.dargoz.jetpack.utils.Constants.Category.URL_TV;
 import static com.dargoz.jetpack.utils.ImageRepositoryList.findImage;
 
-public class DetailFilmActivity extends AppCompatActivity {
+public class DetailFilmActivity extends AppCompatActivity implements View.OnClickListener {
     private DetailFimViewModel viewModel;
     private TextView filmTitleText;
     private ImageView filmPosterImage;
@@ -34,13 +36,18 @@ public class DetailFilmActivity extends AppCompatActivity {
     private TextView runtimeText;
     private LinearLayout genreGridView;
     private TextView statusText;
+    private ImageView bookmarkIcon;
+    private HandlerThread handlerThread;
+    private boolean isBookmarked = false;
+
+    private MovieEntity movieEntity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_film);
         setupView();
-        MovieEntity movieEntity = DetailFimViewModel.prepareData(getIntent());
+        movieEntity = DetailFimViewModel.prepareData(getIntent());
         viewModel = obtainViewModel(movieEntity);
         viewModel.setFilmDetails(movieEntity, DetailFimViewModel.isMovieEntity() ? URL_MOVIES : URL_TV);
         viewModel.gerFilmDetails().observe(this, getDetails);
@@ -48,30 +55,27 @@ public class DetailFilmActivity extends AppCompatActivity {
         initData();
     }
 
-    private DetailFimViewModel obtainViewModel(MovieEntity movieEntity){
+    private DetailFimViewModel obtainViewModel(MovieEntity movieEntity) {
         ViewModelFactory factory =
                 ViewModelFactory.getInstance(getApplication(),
                         movieEntity,
                         DetailFimViewModel.isMovieEntity() ? URL_MOVIES : URL_TV);
-        return ViewModelProviders.of(this,factory).get(DetailFimViewModel.class);
+        return ViewModelProviders.of(this, factory).get(DetailFimViewModel.class);
     }
 
-    private final Observer<Object> getDetails = new Observer<Object>() {
-        @Override
-        public void onChanged(Object filmData) {
-            if (filmData instanceof TvShowEntity) {
-                episodeText.setText(String.format("Tv Shows | %s Episode",
-                        ((TvShowEntity) filmData).getTotalEpisode()));
-            }
-            statusText.setText(((MovieEntity) filmData).getStatus());
-            runtimeText.setText(((MovieEntity) filmData).getDuration());
-            showGenreList(((MovieEntity) filmData).getGenre().split(","));
-
+    private final Observer<Object> getDetails = filmData -> {
+        if (filmData instanceof TvShowEntity) {
+            episodeText.setText(String.format("Tv Shows | %s Episode",
+                    ((TvShowEntity) filmData).getTotalEpisode()));
         }
+        statusText.setText(((MovieEntity) filmData).getStatus());
+        runtimeText.setText(((MovieEntity) filmData).getDuration());
+        showGenreList(((MovieEntity) filmData).getGenre().split(","));
     };
 
-    private void setupView(){
+    private void setupView() {
         filmTitleText = findViewById(R.id.detail_title_text_view);
+        bookmarkIcon = findViewById(R.id.add_to_favorite_button);
         filmPosterImage = findViewById(R.id.movie_detail_image);
         episodeText = findViewById(R.id.episode_text_view);
         filmDescText = findViewById(R.id.desc_detail_text_view);
@@ -79,23 +83,45 @@ public class DetailFilmActivity extends AppCompatActivity {
         runtimeText = findViewById(R.id.runtime_text_view);
         genreGridView = findViewById(R.id.genre_container_view);
         statusText = findViewById(R.id.status_text_view);
+        bookmarkIcon.setOnClickListener(this);
     }
 
-    private void initData(){
-        MovieEntity movieEntity;
-        if(DetailFimViewModel.isMovieEntity()){
+    private void initData() {
+
+        if (DetailFimViewModel.isMovieEntity()) {
             movieEntity = viewModel.getMovieEntity();
             episodeText.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             movieEntity = viewModel.getTvShowEntity();
         }
+
+        initializeBookmarkIcon();
+
         filmTitleText.setText(movieEntity.getTitle());
         Bitmap imagePoster = findImage(movieEntity.getId());
         filmPosterImage.setImageBitmap(imagePoster == null ?
                 BitmapFactory.decodeResource(getResources(),
-                R.drawable.baseline_broken_image_white_24): imagePoster);
+                        R.drawable.baseline_broken_image_white_24) : imagePoster);
         filmDescText.setText(movieEntity.getDescription());
         scoreText.setText(String.valueOf(movieEntity.getScore()));
+    }
+
+    private void initializeBookmarkIcon() {
+        handlerThread = new HandlerThread(this.toString());
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+        handler.post(() -> {
+            if(DetailFimViewModel.isMovieEntity()) {
+                isBookmarked = viewModel.isMovieInFavoriteList(movieEntity);
+            } else {
+                isBookmarked = viewModel.isTvShowInFavoriteList(viewModel.getTvShowEntity());
+            }
+            bookmarkIcon.setImageResource( isBookmarked ?
+                    R.drawable.baseline_bookmark_white_36 :
+                    R.drawable.baseline_bookmark_border_white_36
+            );
+
+        });
     }
 
     private void showGenreList(String[] genreList) {
@@ -116,5 +142,34 @@ public class DetailFilmActivity extends AppCompatActivity {
                 genreGridView.addView(row);
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.add_to_favorite_button) {
+            if (!isBookmarked) {
+                if (DetailFimViewModel.isMovieEntity()) {
+                    viewModel.addToFavoriteMovieList(movieEntity);
+                } else {
+                    viewModel.addToFavoriteTvShowList(viewModel.getTvShowEntity());
+                }
+                bookmarkIcon.setImageResource(R.drawable.baseline_bookmark_white_36);
+            } else {
+                if (DetailFimViewModel.isMovieEntity()) {
+                    viewModel.deleteMovieFromFavoriteList(movieEntity);
+                }else {
+                    viewModel.deleteTvShowFromFavoriteList(viewModel.getTvShowEntity());
+                }
+                bookmarkIcon.setImageResource(R.drawable.baseline_bookmark_border_white_36);
+            }
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        handlerThread.quitSafely();
+        super.onDestroy();
     }
 }

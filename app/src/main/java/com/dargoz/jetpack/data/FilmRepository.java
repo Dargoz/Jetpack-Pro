@@ -2,6 +2,11 @@ package com.dargoz.jetpack.data;
 
 import android.graphics.Bitmap;
 
+import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
+
+import com.dargoz.jetpack.data.source.local.LocalRepository;
 import com.dargoz.jetpack.data.source.local.entity.GenreEntity;
 import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.local.entity.TvShowEntity;
@@ -18,17 +23,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
 public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListener,
         RemoteDBHelper.ImageResponseListener, RemoteDBHelper.TvResponseListener,
         RemoteDBHelper.DetailsListener{
     private volatile static FilmRepository INSTANCE = null;
+
+    private final LocalRepository localRepository;
     private RemoteRepository remoteRepository;
     private RepositoryListener repositoryListener;
     private TvRepositoryListener tvRepositoryListener;
     private ImageRepositoryListener imageRepositoryListener;
     private DetailsRepositoryListener detailsRepositoryListener;
 
-    private FilmRepository(RemoteRepository remoteRepository) {
+    private FilmRepository(LocalRepository localRepository, RemoteRepository remoteRepository) {
+        this.localRepository = localRepository;
         this.remoteRepository = remoteRepository;
     }
 
@@ -36,9 +45,9 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
         this.remoteRepository = remoteRepository;
     }
 
-    public static FilmRepository getInstance(RemoteRepository remoteRepository) {
+    public static FilmRepository getInstance(LocalRepository localRepository, RemoteRepository remoteRepository) {
         if(INSTANCE  == null){
-            INSTANCE = new FilmRepository(remoteRepository);
+            INSTANCE = new FilmRepository(localRepository, remoteRepository);
         }
         return INSTANCE;
     }
@@ -184,5 +193,37 @@ public class FilmRepository implements DataSource, RemoteDBHelper.ResponseListen
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public LiveData<PagedList<MovieEntity>> getFavoriteMovies() {
+        return new LivePagedListBuilder<>(localRepository.getAllMovies(),20).build() ;
+    }
+
+    public void insertMovie(MovieEntity movieEntity) {
+        localRepository.insertMovie(movieEntity);
+    }
+
+    public MovieEntity findMovieById(int id) {
+        return localRepository.findMovieById(id);
+    }
+
+    public void deleteMovieFromFavorite(MovieEntity movieEntity) {
+        localRepository.deleteMovie(movieEntity);
+    }
+
+    public LiveData<PagedList<TvShowEntity>> getFavoriteTvShows() {
+        return new LivePagedListBuilder<>(localRepository.getAllTvShows(),20).build() ;
+    }
+
+    public void insertTvShow(TvShowEntity tvShowEntity) {
+        localRepository.insertTvShow(tvShowEntity);
+    }
+
+    public TvShowEntity findTvShowById(int id) {
+        return localRepository.findTvShowById(id);
+    }
+
+    public void deleteTvShowFromFavorite(TvShowEntity tvShowEntity) {
+        localRepository.deleteTvShow(tvShowEntity);
     }
 }

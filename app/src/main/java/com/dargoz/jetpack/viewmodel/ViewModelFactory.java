@@ -11,6 +11,8 @@ import com.dargoz.jetpack.data.source.local.entity.MovieEntity;
 import com.dargoz.jetpack.data.source.remote.RemoteRepository;
 import com.dargoz.jetpack.di.Injection;
 import com.dargoz.jetpack.ui.detail.DetailFimViewModel;
+import com.dargoz.jetpack.ui.favorite.movie.FavoriteMovieViewModel;
+import com.dargoz.jetpack.ui.favorite.tvshow.FavoriteTvShowViewModel;
 import com.dargoz.jetpack.ui.movie.MovieViewModel;
 import com.dargoz.jetpack.ui.tvshow.TvShowViewModel;
 import com.dargoz.jetpack.utils.Constants;
@@ -83,9 +85,15 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         }else if(modelClass.isAssignableFrom(TvShowViewModel.class)){
             //noinspection unchecked
             return (T) new TvShowViewModel(filmRepository);
-        }else if (modelClass.isAssignableFrom(DetailFimViewModel.class)){
+        }else if (modelClass.isAssignableFrom(DetailFimViewModel.class)) {
             //noinspection unchecked
             return (T) new DetailFimViewModel(filmRepository);
+        }else if(modelClass.isAssignableFrom(FavoriteMovieViewModel.class)) {
+            //noinspection unchecked
+            return (T) new FavoriteMovieViewModel(filmRepository);
+        }else if(modelClass.isAssignableFrom(FavoriteTvShowViewModel.class)) {
+            //noinspection unchecked
+            return (T) new FavoriteTvShowViewModel(filmRepository);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
         }

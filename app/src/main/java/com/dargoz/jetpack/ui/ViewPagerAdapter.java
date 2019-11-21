@@ -17,6 +17,7 @@ class ViewPagerAdapter extends FragmentStatePagerAdapter {
     ViewPagerAdapter(@NonNull FragmentManager fragmentManager, TabLayout tabLayout){
         super(fragmentManager, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.tabLayout = tabLayout;
+        this.tabLayout.removeAllTabs();
     }
     void addFragment(Fragment fragment, String title){
         fragmentArrayList.add(fragment);

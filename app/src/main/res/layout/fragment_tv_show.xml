@@ -9,6 +9,15 @@
         android:id="@+id/tv_show_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/error_message_tv_show_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:text="@string/text_error_message_tv_show_fragment"
+        android:visibility="gone"
+        />
     <Button
         android:id="@+id/tv_reload_button"
         android:layout_width="wrap_content"
